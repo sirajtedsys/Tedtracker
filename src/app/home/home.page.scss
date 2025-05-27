@@ -1,0 +1,144 @@
+body {
+  background: linear-gradient(to left, #f0f4ff, #ffffff);
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // margin-top: 80px;
+  
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  // font-family: 'Plus Jakarta Sans', sans-serif;
+}
+// .container {
+//   flex: 1;
+//   overflow-y: auto;
+//   // padding-bottom: 80px; /* Space for footer */
+// }
+// .footer-menu {
+//   display: flex;
+//   justify-content: space-around;
+//   border-top: 1px solid #ddd;
+//   padding: 10px;
+// }
+// .footer-menu a {
+//   text-decoration: none;
+//   color: #333;
+//   text-align: center;
+//   font-size: 14px;
+// }
+// .footer-menu a i {
+//   font-size: 20px;
+//   display: block;
+//   margin-bottom: 3px;
+// }
+/* Floating Bottom Navigation */
+
+
+
+// body {
+//   background: linear-gradient(to right, #f0f4ff, #ffffff);
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   height: 100vh;
+// }
+
+.container-fluid{
+  
+  padding-bottom: 90px !important;
+  
+  background: linear-gradient(to left, #f0f4ff, #ffffff);
+}
+
+
+
+
+/* Futuristic Floating Bottom Navigation */
+.bottom-nav {
+  position: fixed;
+  bottom: 20px;
+  width: 90%;
+  background: linear-gradient(to right, #6a11cb, #2575fc); /* Gradient background */
+  display: flex;
+  justify-content: space-around;
+  padding: 15px 0;
+  border-radius: 50px; /* Rounded corners for a next-gen feel */
+  box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.3); /* Slightly darker shadow for depth */
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  z-index: 10;
+}
+
+/* Floating Effect */
+.bottom-nav:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Navigation Item */
+.nav-item {
+  text-align: center;
+  color: #ffffff; /* White text for contrast */
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  position: relative;
+  padding: 5px 15px;
+}
+
+/* Icons */
+.nav-item i {
+  font-size: 22px;
+  color: #ffffff;
+  transition: transform 0.3s ease-in-out, color 0.3s;
+}
+
+/* Neon Glow on Hover */
+.nav-item:hover i {
+  color: #ff4081; /* Vibrant neon color */
+  transform: scale(1.2);
+  text-shadow: 0 0 20px rgba(255, 64, 129, 1); /* Strong glow */
+}
+
+/* Text */
+.nav-item span {
+  display: block;
+  font-size: 14px;
+  margin-top: 3px;
+  opacity: 0.9;
+}
+
+/* Active Item (Neon Glow) */
+.nav-item.active {
+  color: #ff4081; /* Active item with neon color */
+  font-weight: bold;
+}
+
+/* Active Item - Glowing Circle */
+.nav-item.active::before {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: #ff4081; /* Matching neon glow color */
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 64, 129, 0.8);
+  animation: glow 1.5s infinite alternate;
+}
+
+/* Glow Animation */
+@keyframes glow {
+  0% {
+      box-shadow: 0 0 10px rgba(255, 64, 129, 0.5);
+  }
+  100% {
+      box-shadow: 0 0 25px rgba(255, 64, 129, 1);
+  }
+}

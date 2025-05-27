@@ -1,0 +1,58 @@
+   
+   <div class="header card">
+    
+  <i class="fa fa-arrow-left back-btn" (click)="NavigateTo('home/menu')"></i>
+    <h3>Add Expense</h3>
+  </div>
+   <div class="container mt-5">
+    <div class="mt-5 mb-1">
+    
+      <div *ngIf="EmpData.length>0" class="expense-box "> 
+        <div class="row">
+          <div class="col-8">
+            {{EmpData[0].EMP_NAME}}
+          </div>
+          <div class="col-4 text-end">
+
+            {{CurrentBalance | number:'1.2-2'}}
+          </div>
+        </div>
+         </div>
+    </div>
+  
+   
+      <div class="row">
+        <div class="col-12 my-1">
+          <select name="ProjectId" id="ProjectId" class="form-select" [(ngModel)]="empex.ProjectId">
+            <option value="">Select Project</option>
+            <option  [value]="items.ProjectId" *ngFor="let items of ProjectList">{{items.ProjectName}}</option>
+          </select>
+        </div>
+        <div class="col-6">
+
+          <h5 class="text-center">
+            <input type="date" class="form-control" [(ngModel)]="empex.ExpDate" name="ExpDate">
+          </h5>
+        </div>
+        <div class="col-6">
+
+          <h6 class="text-end me-3">TOTAL AMT <br> {{FormList.length==0?0.0:GetTotalAmt()}}</h6>
+        </div>
+      </div>
+  
+
+      <div class="mb-3" *ngFor="let items of FormList;let i = index">
+          <div class="expense-box">{{items.ACC_MASTER_NAME}}</div>
+          
+          <input type="number" class="form-control mt-2" placeholder="Amount" [value]="items.ExpDtlAmt"  (input)="EnterField($event,i,'ExpDtlAmt')">
+          <input type="text" class="form-control mt-1" placeholder="Remarks" [value]="items.ExpDtlRemark" (input)="EnterField($event,i,'ExpDtlRemark')">
+      </div>
+
+      <div class="row mb-5">
+        <div class="footer-buttons">
+          <button class="btn btn-outline-success active w-50" (click)="Submit()">Submit</button>
+          <button class="btn btn-outline-danger active w-50" (click)="ClearForm()">Clear</button>
+      </div>
+      </div>
+    </div>
+      

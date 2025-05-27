@@ -1,0 +1,39 @@
+
+.task-card {
+    margin-bottom: 15px;
+  }
+  .task-status {
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+  .completed {
+    color: green;
+  }
+  .in-progress {
+    color: orange;
+  }
+  .pending {
+    color: red;
+  }
+  .task-actions button {
+    margin-right: 5px;
+  }
+  @media (max-width: 768px) {
+    .task-actions {
+      text-align: center;
+    }
+  }
+
+  .date-container {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.date-picker {
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    font-weight: bold;
+    color: #6c757d;
+    cursor: pointer;
+}

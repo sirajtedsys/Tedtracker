@@ -1,0 +1,72 @@
+<body >
+
+  <!-- Header -->
+  <header>
+      <h2>Ted Tracker</h2>
+  </header>
+
+  <!-- Menu Grid -->
+  <section class="menu-container ">
+      <div class="menu-item" *ngFor="let items of TabsList;let  i = index" (click)="NavigateTo(items.Link)">
+          <i class={{items.Icon}}></i>
+          <p>{{items.TabName}}</p>
+      </div>
+      <!-- <div class="menu-item" (click)="NavigateTo('transaction')">
+          <i class="fa fa-list"></i>
+          <p>Transaction</p>
+      </div>
+      <div class="menu-item" (click)="NavigateTo('add-call')">
+          <i class="fa fa-phone"></i>
+          <p>Add Call</p>
+      </div>
+      <div class="menu-item" (click)="NavigateTo('task-list')">
+          <i class="fa fa-tasks"></i>
+          <p>View Call</p>
+      </div> -->
+      <!-- <div class="menu-item">
+          <i class="fa fa-envelope"></i>
+          <p>Messages</p>
+      </div> -->
+      <!-- <div class="menu-item" (click)="NavigateTo('attendence')">
+          <i class="fa fa-clock-o"></i>
+          <p>Attendance</p>
+      </div> -->
+      <!-- <div class="menu-item" (click)="NavigateTo('attendance-report')">
+        <i class="fa fa-user"></i>
+        <p>attendance-report</p>
+    </div>
+      <div class="menu-item" (click)="NavigateTo('employee-attendance-report')">
+        <i class="fa fa-user"></i>
+        <p>employee-attendance-report</p>
+    </div> -->
+      <div class="menu-item" (click)="NavigateTo('profile')">
+        <i class="fa fa-user"></i>
+        <p>Profile</p>
+    </div>
+      <div class="menu-item" (click)="logout()">
+        <i class="fa fa-sign-out"></i>
+        <p>Log Out</p>
+    </div>
+  </section>
+
+  <div class="bottom-nav">
+ 
+
+    <div class="nav-item" (click)="NavigateTo('Attendance')">
+      <i class="fas fa-clock"></i>
+      <span>Attendance</span>
+  </div>
+  <div class="nav-item " (click)="NavigateTo('menu')"> 
+    <i class="fa fa-home"></i>
+    <span>Menu</span>
+  </div>
+  
+      <div class="nav-item " (click)="NavigateTo('profile')">
+          <i class="fa fa-user"></i>
+          <span>Profile</span>
+      </div>
+  
+  
+  </div>
+
+</body>

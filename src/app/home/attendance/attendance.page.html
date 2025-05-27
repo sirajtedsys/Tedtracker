@@ -1,0 +1,193 @@
+
+
+<!-- <div class=" welwrapper "  *ngIf="viewtype=='table'"> -->
+
+  <div class="header card">
+    <!-- <i class="fa fa-arrow-left back-btn" (click)="NavigateTo('home/transaction')"></i> -->
+     
+  <i class="fa fa-arrow-left back-btn" (click)="NavigateTo('home/menu')"></i>
+    <h3>      
+      Attendance
+    </h3>
+  </div>
+<!-- <div class="patient-list "> -->
+  <div class="patient-list  pt-5 pb-5 px-2 mt-5">
+    <!-- <div class="welcome mb-2"> -->
+      <!-- <div class=" rounded-3"> -->
+        <!-- <h1 class="fs-3 text-center">ATTENDENCE</h1> -->
+        <!-- <p class="mb-0">Hello Jone Doe, welcome to your awesome dashboard!</p> -->
+      <!-- </div> -->
+    <!-- </div>  -->
+
+ 
+    
+    
+  
+    
+    <div class="row mb-2">
+
+      <div class="col-md-12 text-center">
+        <!-- <label class="border rounded-circle p-4"><i class="fa fa-user"></i></label> -->
+         <img src="assets/images/doctor.png" class="proimg" alt="">
+
+      </div>
+      <div class="col-md-12 text-center">
+       <label class="fw-bolder" for=""> {{EmpCode}}</label>
+      </div>
+      <div class="col-md-12 text-center">
+        <label class="fw-bolder" for="">{{EmpName}}</label>
+      </div>
+
+      <div class="col-md-12 text-center my-3">
+        {{TimeNo | date:'dd-MMM-yyyy'}} <br>
+        {{TimeNo | date:'hh:mm a'}}
+      </div>
+    </div>
+
+
+
+    <div class="">
+      <div *ngFor="let cycle of groupedAttendanceData" class="mt-3  card p-2" style="background-color: transparent;">
+        <div class="row px-1">
+          <div class="col-md-12 my-2 mx-1">
+            <div class="form-control border-black text-center" *ngIf="cycle.checkIn!=null">
+              <i class="fa fa-check text-success"></i>
+              <label for="">Check In Time: {{ cycle.checkIn.PUNCH_DATE | date: 'hh:mm:ss a' }}</label>
+            </div>
+            <button  data-bs-toggle="modal" data-bs-target="#exampleModal" *ngIf="cycle.checkIn==null  && cycle.break == null &&  (cycle.checkOut == null )"  class="btn w-100 btn-outline-primary active">
+              Check In
+            </button>
+          </div>
+
+          <div class="col-md-12 my-2 mx-1" *ngIf="cycle.checkIn != null && cycle.checkOut == null && (cycle.breaks.length == 0 )">
+            <button (click)="BreakOut()" class="btn w-100 btn-outline-primary active">Break Out</button>
+          </div>
+    
+          <div class="col-12 my-2 mx-1">
+            <div *ngFor="let breakPair of cycle.breaks" class="row mx-1 my-1">
+              <div class="col-6">
+                <div *ngIf="breakPair.breakOut!=null" class="form-control border-black text-center">
+                  <label for="">Break Out <br>{{ breakPair.breakOut.PUNCH_DATE | date:'hh:mm:ss a' }}</label>
+                </div>
+              </div>
+              <div class="col-6">
+                <div *ngIf="breakPair.breakIn" class="form-control border-black text-center">
+                  <label for="">Break In <br>{{ breakPair.breakIn.PUNCH_DATE | date:'hh:mm:ss a' }}</label>
+                </div>
+              </div>
+
+                         <!-- *ngIf="Attendence.CheckIn!='' && AttendenceBreak.BreakOut==''  &&  (Attendence.CheckOut=='' || Attendence.CheckOut==null)" -->
+        <div class="col-md-12 my-2 mx-1" *ngIf="cycle.checkIn!=null && breakPair.breakOut==null  && cycle.checkOut==null">
+          
+          <button (click)="BreakOut()" class="btn w-100 btn-outline-primary active">Break Out  </button>
+        </div>
+        <!-- *ngIf="Attendence.CheckIn !== '' && AttendenceBreak.BreakOut != '' && (AttendenceBreak.BreakIn ==''||AttendenceBreak.BreakIn ==null  &&  (Attendence.CheckOut=='' || Attendence.CheckOut==null)) " -->
+        <div class="col-md-12 my-2 mx-1" *ngIf="cycle.checkIn !== null && breakPair.breakOut != null && (breakPair.breakIn == null  &&  (cycle.checkOut== null )) ">
+          <button  class="btn w-100 btn-outline-primary active" (click)="BreakIn()">
+            Break in
+          </button>
+        </div>
+            </div>
+          </div>
+          <div class="col-md-12 my-2 mx-1" *ngIf="cycle.checkIn != null && cycle.breaks.length>0 && cycle.checkOut == null &&  cycle.breaks[cycle.breaks.length-1].breakOut!=null && cycle.breaks[cycle.breaks.length-1].breakIn!=null ">
+            <button (click)="BreakOut()" class="btn w-100 btn-outline-primary active">Break Out</button>
+          </div>
+   
+    
+          <div class="col-md-12">
+            <div *ngIf="cycle.checkOut" class="form-control border-black text-center">
+              <label for="">Check Out Time: {{ cycle.checkOut.PUNCH_DATE | date: 'hh:mm:ss a' }}</label>
+            </div>
+            <button *ngIf="CheckOutCOndition(cycle)" (click)="CheckOut()" class="btn w-100 btn-outline-danger active">
+              Check Out
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Checkin Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <!-- <div class="row my-2">
+                <label for="punchFrom" class="form-label">Select Punch Location</label>
+                <div class="form-check">
+                  <input class="form-check-input" style="border: solid 1px black;" type="radio" name="punchFrom" id="office" value="0">
+                  <label class="form-check-label" for="office">
+                    OFFICE
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" style="border: solid 1px black;" type="radio" name="punchFrom" id="home" value="1">
+                  <label class="form-check-label" for="home">
+                    HOME
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" style="border: solid 1px black;" type="radio" name="punchFrom" id="project" value="2">
+                  <label class="form-check-label" for="project">
+                    PROJECT
+                  </label>
+                </div>
+              </div> -->
+              <div class="row my-2">
+                <label for="punchFrom" class="form-label">Select Punch Location</label>
+                <div class="d-flex justify-content-between w-100">
+                  <div class="form-check">
+                    <input class="form-check-input" style="border: solid 1px black;" checked (change)="Clearproj()" type="radio" name="punchFrom" id="office" [(ngModel)]="PunchLocation" value="0">
+                    <label class="form-check-label" for="office">
+                      OFFICE
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" style="border: solid 1px black;" (change)="Clearproj()" type="radio" name="punchFrom" id="home" [(ngModel)]="PunchLocation" value="1">
+                    <label class="form-check-label" for="home">
+                      HOME
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" style="border: solid 1px black;" type="radio" name="punchFrom" id="project" [(ngModel)]="PunchLocation" value="2" >
+                    <label class="form-check-label" for="project">
+                      PROJECT
+                    </label>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="row my-2" *ngIf="PunchLocation==2">
+              <div class="col-12"> 
+                <div class="form-group">
+                <label for="name">Project<span class="text-danger">*</span></label></div>
+            
+                <input type="text" class="form-select " (click)="OpenProjectModal()" placeholder="Select Project" [(ngModel)]="call.ProjectName" name="ProjectName" id="ProjectName">  
+              </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" (click)="Submit1()" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+
+</div>
+
+<!-- Responsive table -->
+
+
+<!-- </div> -->
+<!-- </div> -->
+
+

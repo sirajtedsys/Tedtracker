@@ -1,0 +1,18 @@
+.proimg{
+    height: 80%;
+    width: 50%;
+}
+
+.patient-list{
+    background: linear-gradient(to left, #f0f4ff, #ffffff);
+    min-height: 100vh;
+    // height: 100vh;
+
+}
+
+@media (min-width: 768px) {
+    .proimg{
+        // height: 50%;
+        width: 30%;
+    }
+  }

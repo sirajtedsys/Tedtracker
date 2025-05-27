@@ -1,0 +1,37 @@
+body {
+    
+     background: linear-gradient(to left, #f0f4ff, #ffffff);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    // background: #fff;
+    border-radius: 10px;
+    // box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    
+  background: linear-gradient(to left, #f0f4ff, #ffffff);
+}
+.form-control {
+    border-radius: 20px;
+}
+.login-btn {
+    width: 100%;
+    border-radius: 20px;
+    // background-color: #007bff;/
+    
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: white;
+    font-size: 18px;
+}
+.configure {
+    margin-top: 10px;
+    font-size: 14px;
+    color: gray;
+    cursor: pointer;
+}

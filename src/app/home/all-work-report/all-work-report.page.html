@@ -1,0 +1,219 @@
+
+
+
+<!-- <div class="p-4 welwrapper " > -->
+  <!-- <h2 class="text-center mb-4">Assigned Tasks</h2> -->
+  <div class="header card">
+    <!-- <i class="fa fa-arrow-left back-btn" (click)="NavigateTo('home/transaction')"></i> -->
+     
+    <i class="fa fa-arrow-left back-btn" (click)="NavigateTo('home/menu')"></i>
+      <h3>
+        
+       All Daily Work Report
+      </h3>
+  </div>
+ 
+<div class="container-fluid cont">
+  <!-- <div class="date-container">
+    <input type="date" id="transactionDate" class="date-picker" [max]="Today" [(ngModel)]="SelectedDate" (change)="Datechange($event)" name="selecteddate">
+</div> -->
+
+<div class="row">
+
+  <div class="col-5 col-md-3 col-lg-3">
+
+    <h5 class="text-center">
+      <input type="date" class="form-control" [(ngModel)]="fromdate" name="ExpDate"  >
+    </h5>
+  </div>
+  <div class="col-5 col-md-3 col-lg-3">
+
+    <h5 class="text-center">
+      <input type="date" class="form-control" [(ngModel)]="todate" name="ExpDate"  >
+    </h5>
+  </div>
+ 
+  <div class="col-2 col-md-1 col-lg-1" >
+
+    <button class="btn btn-outline-success w-100 active" (click)="Datechange()"> <i class="fa fa-paper-plane"> </i></button>
+  </div>
+
+  <div class="col-12 col-md-4 col-lg-4">
+    <select name="EmployeeId" id="EmployeeId" class="form-select" (change)="FilterByEmployee($event)">
+      <option value="">All Employee</option>
+      <option [value]="items.EmployeeName" *ngFor="let items of Employeelist;let i = index">{{items.EmployeeName}}</option>
+    </select>
+  </div>
+
+  <div class="col-2 col-md-1" *ngIf="TaskList.length>0">
+          
+    <!-- <label for="empmobile">&nbsp;</label> -->
+    <button class="btn   w-100 py-2 pb-1 btn-outline-primary active"  (click)="exportToExcel()"> <i class="fa fa-file-excel"></i></button>
+  </div>
+</div>
+
+  
+
+
+
+
+  <div class="row mb-3 " >
+    <div class="col-md-12 my-1">
+      <div class="form-group">
+        <!-- <label for="saluteid">Status</label>/ -->
+        <!-- <select class="form-select" id="DesignationId" name="DesignationId" [(ngModel)]="TaskStatusFilter" (change)="ChangeTaskiListing($event)" >
+          <option Value="0">Select Task Status</option>
+          <option *ngFor="let option of TaskStatusList" [value]="option.commstrid
+          ">{{ option.commstrnam }}</option>
+        </select> -->
+   
+      </div>
+    </div>
+
+    <div class="col-md-12 my-1" *ngIf="this.TaskListDup.length!=0">
+      <input type="text" id="searchBar" (input)="search($event)" class="form-control" placeholder="Search...">
+  </div>
+  </div>
+
+ 
+
+  <!-- Task List -->
+  <div class="row"*ngIf="ismobile">
+    <div class="col-md-6" *ngFor="let items of TaskList; let i = index">
+      <div class="card task-card">
+        <div class="card-body">
+          <h5 class="card-title">{{ items.Subject }}</h5>
+          <p class="card-text">
+            <strong>Work Ref :</strong> {{ items.WORK_REFNO }}<br>
+            <strong>Employee :</strong> {{ items.EMP_NAME }}<br>
+            
+            <strong>Date :</strong> {{ items.WORK_DATE | date: 'dd/MMM/yyyy' }}<br>
+            <!-- <strong>Client :</strong> {{ items.CUST_NAME }}<br> -->
+            <strong>Project :</strong> {{ items.PROJECT_NAME }}<br>
+            <strong>Module :</strong> {{ items.MODULE_NAME }}<br>
+            <strong>Task Status :</strong> {{ items.WORK_STATUS }}<br>
+            <strong>Description :</strong> {{ items.CALLED_DESCRIPTION }}<br>
+            <strong>Completion Percentage :</strong> {{ items.TOTAL_WORK_PERCENTAGE }}<br>
+            <strong>Total Work Time :</strong>
+            <span>{{ items.TOTAL_WORK_HOURS == null ? 0 : items.TOTAL_WORK_HOURS }} : {{ items.TOTAL_WORK_MINUTES == null ? 0 : items.TOTAL_WORK_MINUTES }}</span><br>
+            <!-- <strong>Total Work Minute :</strong>
+            {{ items.TOTAL_WORK_MINUTES == null ? 0 : items.TOTAL_WORK_MINUTES }}<br> -->
+            <strong>Progress Note :</strong>
+            <span>{{ items.PROGRESS_NOTE }}</span><br>
+          </p>
+  
+          <!-- Delete Button -->
+          <!-- <div class="task-actions mt-3 text-center">
+            <button class="btn btn-danger btn-sm" *ngIf="CheckWorkDateIsToday(items.WORK_DATE)" (click)="deleteTask(i, items)">
+              <i class="fas fa-trash"></i> Delete
+            </button>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <span *ngIf="!ismobile">
+    <div class="table-responsive">
+      <table class="table border-dark table-bordered table-hover small-text-table">
+          <thead>
+              <tr>
+                  <th style="text-align: center;">Sl.No</th>
+                  <th style="text-align: center;">Work Ref</th>
+                  <th style="text-align: center;">Date</th>
+                  <th style="text-align: center;">Employee</th>
+                  <th style="text-align: center;">Project</th>
+                  <!-- <th style="width: 10%;">BreakOut</th>
+                  <th style="width: 10%;">BreakIn</th> -->
+                  <th style="text-align: center;"> Module</th>
+                  <!-- <th style="text-align: center;">Call Type </th>
+                  <th style="text-align: center;">Emergency</th>
+                  <th style="text-align: center;">Error Type</th> -->
+                  <th style="text-align: center;">Task Status</th>
+                  <th style="Text-align: center;">Description </th>
+                  <th style="text-align: center;">Completion Percentage </th>
+                  <th style="text-align: center;">Total Work Time</th>
+                  <!-- <th style="text-align: center;">Total Work Minute </th> -->
+                  <th style="text-align: center;">Progress Note </th>
+                  <!-- <th ></th> -->
+              </tr>
+          </thead>
+          <tbody>
+            <tr  *ngFor="let items of TaskList;let i = index">
+              <td class="text-center">{{i+1}}</td>
+              <td style="text-align: center;">{{items.WORK_REFNO}}</td>
+              <td style="text-align: center;">{{items.WORK_DATE | date:'dd/MMM/yyyy'}}</td>
+              <td style="text-align: center;">{{items.EMP_NAME}}</td>
+              <td style="text-align: center;">{{items.PROJECT_NAME }}</td>
+              <!-- <td>{{items.BREAK_OUT | date:'hh:mm a'}}</td>
+              <td>{{items.BREAK_IN | date:'hh:mm a'}}</td> -->
+              <td style="text-align: center;">{{items.MODULE_NAME }}</td>
+              <!-- <td style="text-align: center;">{{items.CALL_TYPE}}</td> -->
+              <!-- <td>{{items.BREAK_HRS_STR}}</td> -->
+              <td style="text-align: center;">{{items.WORK_STATUS}}</td>
+              <td style="text-align: center;">{{items.CALLED_DESCRIPTION}}</td>
+              <td style="text-align: center;">{{items.TOTAL_WORK_PERCENTAGE}}</td>
+              <td style="text-align: center;">{{ items.TOTAL_WORK_HOURS == null ? 0 : items.TOTAL_WORK_HOURS }}: {{ items.TOTAL_WORK_MINUTES == null ? 0 : items.TOTAL_WORK_MINUTES }}</td>
+              <!-- <td style="text-align: center;"></td> -->
+              <td style="text-align: center;">{{ items.PROGRESS_NOTE }}</td>
+              <!-- <td style="text-align: center;">{{items.CALLED_DESCRIPTION}}</td> -->
+              <!-- <td > -->
+
+           
+                <!-- <button class="btn btn-danger btn-sm" *ngIf="CheckWorkDateIsToday(items.WORK_DATE)" (click)="deleteTask(i, items)">
+                  <i class="fas fa-trash"></i> Delete
+                </button> -->
+
+
+              <!-- </td> -->
+                
+              <!-- <td>{{items.TOT_BREAK_HRS_MIN}}</td>
+              <td>{{calculateTotalWorkingTime2(items)}}</td> -->
+          </tr>
+      
+
+              <!-- <tr  *ngFor="let items of ReportData;let i = index">
+                  <td class="text-center">{{i+1}}</td>
+                  <td>{{items.DT | date:'dd-MMM-yyyy'}}</td>
+                  <td>{{items.EMP_NAME}}</td>
+                  <td>{{items.PUNCH_IN | date:'hh:mm a'}}</td>
+                  <td>{{items.PUNCH_OUT | date:'hh:mm a'}}</td>
+                  <td>{{calculateTotalWorkingTime1(items)}}</td>
+                  <td>{{items.TOT_BREAK_HRS_MIN}}</td>
+                  <td>{{calculateTotalWorkingTime2(items)}}</td>
+                
+                 
+              </tr>
+           -->
+          </tbody>
+      </table>
+  </div>
+  </span>
+
+  <div class="row text-center" *ngIf="TaskList.length==0 ">
+    <div class="col-12 text-center">
+        <label class="text-center fw-bolder">
+          No Work Found
+        </label>
+    </div>  
+    </div>
+
+
+
+
+</div>
+
+
+<!-- Button to trigger modal -->
+<!-- <button type="button" class="btn btn-primary" >
+  Open Modal
+</button> -->
+
+<!-- Modal -->
+
+
+
+
+  <!-- Add more task cards as needed -->
+<!-- </div> -->

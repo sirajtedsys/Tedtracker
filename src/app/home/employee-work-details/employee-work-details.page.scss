@@ -1,0 +1,15 @@
+.small-text-table {
+    font-size: 12px; /* Adjust the size as needed */
+  }
+
+
+  .emergency-row {
+    background-color: #ffdddd !important;  /* Light red background */
+    // color: #900 !important;                /* Optional: dark red text */
+    font-weight: bold;
+    border-left: 5px solid #d9534f;
+  }
+  .table>:not(caption)>*>* 
+  {
+    background-color: transparent;
+  }

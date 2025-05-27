@@ -1,0 +1,182 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&display=swap');
+
+/* General Styles */
+// * {
+//     margin: 0;
+//     padding: 0;
+//     box-sizing: border-box;
+//     font-family: 'Plus Jakarta Sans', sans-serif;
+// }
+
+// body {
+//     background: linear-gradient(to right, #f0f4ff, #ffffff);
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     height: 100vh;
+// }
+body {
+    background: linear-gradient(to left, #f0f4ff, #ffffff);
+    // height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    // font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+/* Header */
+header {
+    width: 100%;
+    background: linear-gradient(to right, #6a11cb, #2575fc); 
+    backdrop-filter: blur(10px);
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-size: 22px;
+    font-weight: bold;
+    text-transform: initial;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    position: fixed;
+    z-index: 1;
+}
+
+/* Menu Grid */
+.menu-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    // padding: 20px;
+    width: 90%;
+    margin-top: 90px  !important;
+    padding-bottom: 90px !important;
+}
+
+.menu-item {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(15px);
+    text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+}
+
+/* Hover Glow Effect */
+.menu-item:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 4px 20px rgba(0, 123, 255, 0.3);
+}
+
+/* Icons */
+.menu-item i {
+    font-size: 28px;
+    color: #007bff;
+    transition: 0.3s;
+}
+
+/* Menu Text */
+.menu-item p {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+}
+
+
+
+
+
+
+/* Futuristic Floating Bottom Navigation */
+.bottom-nav {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background: linear-gradient(to right, #6a11cb, #2575fc); /* Gradient background */
+    display: flex;
+    justify-content: space-around;
+    // padding: 15px 0;
+    // border-radius: 50px; /* Rounded corners for a next-gen feel */
+    box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.3); /* Slightly darker shadow for depth */
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    z-index: 10;
+}
+
+/* Floating Effect */
+.bottom-nav:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Navigation Item */
+.nav-item {
+    text-align: center;
+    color: #ffffff; /* White text for contrast */
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    position: relative;
+    padding: 5px 15px;
+}
+
+/* Icons */
+.nav-item i {
+    font-size: 22px;
+    color: #ffffff;
+    transition: transform 0.3s ease-in-out, color 0.3s;
+}
+
+/* Neon Glow on Hover */
+.nav-item:hover i {
+    color: #ff4081; /* Vibrant neon color */
+    transform: scale(1.2);
+    text-shadow: 0 0 20px rgba(255, 64, 129, 1); /* Strong glow */
+}
+
+/* Text */
+.nav-item span {
+    display: block;
+    font-size: 14px;
+    margin-top: 3px;
+    opacity: 0.9;
+}
+
+/* Active Item (Neon Glow) */
+.nav-item.active {
+    color: #ff4081; /* Active item with neon color */
+    font-weight: bold;
+}
+
+/* Active Item - Glowing Circle */
+.nav-item.active::before {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    background: #ff4081; /* Matching neon glow color */
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 64, 129, 0.8);
+    animation: glow 1.5s infinite alternate;
+}
+
+/* Glow Animation */
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 10px rgba(255, 64, 129, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 25px rgba(255, 64, 129, 1);
+    }
+}

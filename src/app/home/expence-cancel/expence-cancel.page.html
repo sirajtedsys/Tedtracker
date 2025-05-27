@@ -1,0 +1,66 @@
+<div class="header card">
+  <i class="fa fa-arrow-left back-btn" (click)="NavigateTo('home/transaction')"></i>
+  Transaction Details
+</div>
+
+<div class="container-fluid cont">
+  <!-- Total Amount Section -->
+  <div class="content">
+    <h6 class="text-center">{{PROJECT_NAME}}</h6>
+      <i class="fa fa-th-large total-icon"></i>
+      <p class="total-amount">Total Amount</p>
+      <h2>{{TotalAmt | number:'1.2-2'}}</h2>
+  </div>
+
+  <!-- Transaction Details -->
+  <div class="details-container">
+      <div class="details-row separator">
+          <span>Name</span>
+          <span>{{Name}}</span>
+      </div>
+      <!-- <div class="details-row separator">
+        <span>Project</span>
+        <span>{{PROJECT_NAME}}</span>
+    </div> -->
+      
+      <div class="details-row separator">
+          <span>Date</span>
+          <span>{{RefDate}}</span>
+      </div>
+      <div class="details-row separator">
+          <span>Ref No</span>
+          <span>{{RefNo}}</span>
+      </div>
+      <div *ngFor="let items of ExpenseList">
+        <div class="details-row ">
+          <span>{{ items.ACC_EXPENCE }}</span>
+          <span>{{ items.EXP_DTLS_AMT | number:'1.2-2' }}</span>
+        </div>
+    
+        <!-- Remarks Row (Only if there is a remark) -->
+        <div class="details-row separator" *ngIf="items.EXP_DTLS_REMARK && items.EXP_DTLS_REMARK.trim() !== ''">
+          <span>Remarks:</span>
+          <span>{{ items.EXP_DTLS_REMARK }}</span>
+        </div>
+      </div>
+      <!-- <div class="details-row separator">
+          <span>Tea / Coffee for Staff</span>
+          <span>3</span>
+      </div>
+      <div class="details-row separator">
+          <span>Transportation Charges</span>
+          <span>1</span>
+      </div> -->
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="form-group">
+        <!-- <label for="" >Cancellation Remarks</label> -->
+        <textarea name="remarks" id="remarks" class="form-control" [(ngModel)]="remarks"  placeholder="Cancellation Remarks"></textarea>
+      </div>
+    </div>
+  </div>
+  <!-- Cancel Button -->
+  <button class="cancel-btn" (click)="Cancel()">CANCEL</button>
+</div>

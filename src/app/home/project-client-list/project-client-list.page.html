@@ -1,0 +1,364 @@
+<!-- <div class="p-4 welwrapper " > -->
+<!-- <h2 class="text-center mb-4">Assigned Tasks</h2> -->
+<div class="header card">
+  <!-- <i class="fa fa-arrow-left back-btn" (click)="NavigateTo('home/transaction')"></i> -->
+
+  <i class="fa fa-arrow-left back-btn" (click)="NavigateTo('home/menu')"></i>
+  <h3>
+
+    Client Ticket List
+
+  </h3>
+  <i class="fa fa-refresh refresh-btn" (click)="LOaders()"></i>
+</div>
+
+<div class="container-fluid cont">
+
+  <div class="row my-3">
+    <div class="col-12 col-sm-4">
+      <div class="form-group">
+        <label for="SelectedProject">Project</label>
+        <input type="text" class="form-select " (click)="OpenProjectModal()" placeholder="Select Project"
+          [(ngModel)]="SelectedProjectName" name="ProjectName" id="ProjectName">
+
+      </div>
+    </div>
+    <div class="col-12 col-sm-4">
+      <div class="form-group">
+        <label for="SelectedProject">Status</label>
+        <select name="stauts" id="stauts" class="form-select" [(ngModel)]="SelectedClientStatus"
+          (change)="OnStatusSelectFilter($event)">
+          <option value="">All</option>
+          <option [value]="items.CLIENT_WORK_STATUS_ID" *ngFor="let items of ClientWorkStatusList2">
+            {{items.CLIENT_WORK_STATUS}}</option>
+        </select>
+      </div>
+    </div>
+    <div class=" col-12 col-sm-4 " *ngIf="this.TaskListDup.length!=0">
+
+      <div class="form-group">
+
+        <label for="searchBar"></label>
+        <input type="text" id="searchBar" (input)="search($event)" class="form-control" placeholder="Search...">
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="row text-center" *ngIf="TaskList.length==0 ">
+    <div class="col-12 text-center">
+      <label class="text-center fw-bolder">
+        No Task Found
+      </label>
+    </div>
+  </div>
+
+  <!-- Task List -->
+  <div class="row" *ngIf="ismobile && viewtype=='table'">
+
+    <!-- Example Task Card -->
+    <div class="col-md-6 col-lg-4" *ngFor="let items of TaskList;let i = index">
+      <div class="card task-card">
+        <div class="card-body">
+          <p class="card-text">
+            <strong>Name : </strong> {{items.PROJECT_NAME}}<br>
+            <strong>Date : </strong> {{items.PROJECT_WORK_DATE | date:'dd/MMM/yyyy'}}<br>
+            <strong>Work Ref : </strong> {{items.PROJECT_WORK_REFNO}}<br>
+            <strong>Module : </strong> {{items.MODULE_NAME}}<br>
+            <strong> Contact Name : </strong>{{items.CONTACT_NAME}}<br>
+            <strong> Contact No : </strong>{{items.CONTACT_NO}}<br>
+            <strong> Status : </strong><span class="fw-bold"
+              [style.color]="items.FOR_COLOR_CODE">{{items.CLIENT_WORK_STATUS}}</span><br>
+            <strong> Description : </strong>{{items.CALLED_DESCRIPTION}}
+          </p>
+          <!-- <span class="task-status in-progress">{{items.TaskStatusName}}</span> -->
+          <div class="task-actions mt-3">
+            <button *ngIf="items.ATTACH_FILE_COUNT>0" (click)="GetProjectClientAttach(items.PROJECT_WORK_ID)"
+              class="btn btn-primary btn-sm" data-bs-toggle="modal" title="Attachments"
+              data-bs-target="#AttachmentModal"><i class="fa fa-file"></i></button>
+            <button class="btn btn-outline-success m-1 btn-sm active" (click)="OnStatusEdition(items)"
+              data-bs-toggle="modal" title="Update Work Status" data-bs-target="#AttachmentModal1"><i
+                class="fa fa-pencil"></i></button>
+
+            <button class="btn btn-outline-secondary m-1 btn-sm active" *ngIf="items.STATUS_ROW_COUNT>0"
+              (click)="OnInfoView(items.PROJECT_WORK_ID)" data-bs-toggle="modal" title="previous Work Status"
+              data-bs-target="#AttachmentModal2"><i class="fa fa-info-circle"></i></button>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+
+
+  <div class="table-responsive" *ngIf="!ismobile && viewtype=='table' && TaskList.length>0">
+    <table class="table border-dark table-bordered table-hover small-text-table">
+      <thead>
+        <tr>
+          <th style="width: 4%; text-align: center;">Sl.No</th>
+          <th style="width: 20%; text-align: center;">Project Name</th>
+          <th style="width: 10%; text-align: center;">Date</th>
+          <th style="width: 10%; text-align: center;">Work Ref</th>
+          <th style="width: 10%; text-align: center;">Module</th>
+          <th style="width: 10%; text-align: center;">Contact Name</th>
+          <th style="width: 10%; text-align: center;">Contact No </th>
+          <th style="width: 10%; text-align: center;">Status </th>
+          <th style="width: 20%; text-align: center;">Description </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let items of TaskList; let i = index" [ngClass]="items.EmergencyType=='Yes'?'emergency-row':''">
+          <!-- <span > -->
+          <td class="text-center">{{ i + 1 }}</td>
+          <td>{{ items.PROJECT_NAME }}</td>
+          <td>{{ items.PROJECT_WORK_DATE | date:'dd/MMM/yyyy' }}</td>
+          <td>{{ items.PROJECT_WORK_REFNO }}</td>
+          <td>{{ items.MODULE_NAME }}</td>
+          <td>{{ items.CONTACT_NAME }}</td>
+          <td>{{ items.CONTACT_NO }}</td>
+          <td class="fw-bold" [style.color]="items.FOR_COLOR_CODE">{{ items.CLIENT_WORK_STATUS }}</td>
+
+          <td>{{ items.CALLED_DESCRIPTION }}</td>
+          <!-- </span> -->
+          <td>
+            <button *ngIf="items.ATTACH_FILE_COUNT>0" (click)="GetProjectClientAttach(items.PROJECT_WORK_ID)"
+              class="btn m-1 btn-outline-primary active btn-sm" data-bs-toggle="modal" title="Attachments"
+              data-bs-target="#AttachmentModal"><i class="fa fa-file"></i></button>
+            <button class="btn btn-outline-success m-1 btn-sm active" *ngIf="items.PROJECT_WORK_STATUS_ID!=4"
+              (click)="OnStatusEdition(items)" data-bs-toggle="modal" title="Update Work Status"
+              data-bs-target="#AttachmentModal1"><i class="fa fa-pencil"></i></button>
+            <button class="btn btn-outline-secondary m-1 btn-sm active" *ngIf="items.STATUS_ROW_COUNT>0"
+              (click)="OnInfoView(items.PROJECT_WORK_ID)" data-bs-toggle="modal" title="previous Work Status"
+              data-bs-target="#AttachmentModal2"><i class="fa fa-info-circle"></i></button>
+
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+</div>
+
+
+<div class="modal fade" id="AttachmentModal" tabindex="-1" aria-labelledby="AttachmentModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="attch">Attachment </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="row">
+          <div class="col-12 my-3" *ngFor="let items of AttachList;let i = index">
+            <div class="form-group">
+              <div class="form-group">
+                <!-- Check if there is an attachment -->
+                <div>
+                  <!-- <p>Attachment No {{i+1}}</p> -->
+                  <!-- Assuming the attachment is a URL to an image -->
+                  <!-- {{appconfig.url +'/Attendence/' + Attachment}}k -->
+                  <div *ngIf="isImage(items.ATTACH_FILE_PATH)">
+                    <img [src]="appconfig.url+'/ProjectClient/'+items.ATTACH_FILE_PATH" alt="Attachment"
+                      class="img-fluid" />
+                  </div>
+                  <!-- Assuming the attachment is a link to a document -->
+                  <div>
+                    <!-- <a [href]="appconfig.url+'/Attendence/'+items.ATTACH_FILE_PATH" target="_blank" class="btn btn-primary">Download Attachment {{i+1}}</a> -->
+                    <a [href]="appconfig.url+'/ProjectClient/'+items.ATTACH_FILE_PATH" download [attr.target]="'_blank'"
+                      class="btn btn-primary">
+                      Download Attachment {{i+1}}
+                    </a>
+                  </div>
+                </div>
+
+                <!-- <div *ngIf="!this.Attachment">
+                  <p>No attachment available.</p>
+                </div> -->
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="AttachmentModal1" tabindex="-1" aria-labelledby="AttachmentModalLabel1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="attch">Update Work Status </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <label for="date">Date<span class="text-danger">*</span></label>
+              <input name="Date" id="Date" class="form-select" type="date" [(ngModel)]="Ws_Date">
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="stauts">Status<span class="text-danger">*</span></label>
+                <select name="stauts" id="stauts" class="form-select" [(ngModel)]="Ws_Status">
+                  <option value="">Select a Status</option>
+                  <option [value]="items.CLIENT_WORK_STATUS_ID" *ngFor="let items of ClientWorkStatusList">
+                    {{items.CLIENT_WORK_STATUS}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-12">
+              <label for="rmks">Internal Remarks<span class="text-danger">*</span></label>
+              <textarea name="rmks" id="rmks" class="form-control" placeholder="Internal Remarks"
+                [(ngModel)]="Ws_Remarks" rows="3"></textarea>
+            </div>
+            <div class="col-12">
+              <label for="rmdks"> Remarks for Client</label>
+              <textarea name="rmdks" id="rmdks" class="form-control" placeholder=" Remarks for client"
+                [(ngModel)]="Ws_Remarks_exter" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="row my-2">
+            <!-- File input to select multiple files -->
+            <input type="file"  #fileInput (change)="uploadFiles($event)" multiple />
+             
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" (click)="SubmitTaskStatus()" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade " id="AttachmentModal2" tabindex="-1" aria-labelledby="AttachmentModalLabel2" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="attch">Work Status Updates </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center" *ngIf="ClientWorkStatusListReport.length==0">
+        <h5 class="text-center">No Data Found!</h5>
+      </div>
+      <div class="modal-body" *ngIf="ClientWorkStatusListReport.length>0">
+
+        Work Details :- {{ClientWorkStatusListReport[0].CALLED_DESCRIPTION}}
+        <!-- {
+          "PROJECT_WORK_NO": 24,
+          "PROJECT_WORK_REFNO": "PW000024-05/2025",
+          "PROJECT_WORK_DATE": "2025-05-13T00:00:00",
+          "CALLED_DESCRIPTION": "updated",
+          "EMP_NAME": "Sabin James",
+          "CLIENT_WORK_STATUS": "Task Opened",
+          "CLIENT_WORK_STATUS_ID": 2,
+          "PROJECT_WORK_ID": 64,
+          "CREATE_USER": 1210000022,
+          "CREATE_DATE": "2025-05-13T12:30:53",
+          "UPDATE_USER": null,
+          "UPDATE_DATE": null,
+          "REMARKS": "intern",
+          "EXTERNAL_REMARKS": null
+      } -->
+        <div class="table-responsive">
+          <table class="table border-dark table-bordered table-hover small-text-table">
+            <thead>
+              <tr>
+                <th style="width: 4%;text-align: center;">Sl.No</th>
+                <!-- <th style="width: 10%;text-align: center;">Department</th> -->
+                <th style="text-align: center;">Date</th>
+                <th style="text-align: center;">Internal Remarks</th>
+                <th style="text-align: center;">External Remarks</th>
+                <th style="text-align: center;">Status</th>
+                <th style="text-align: center;">Employee</th>
+                <th></th>
+
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let items of ClientWorkStatusListReport;let i = index">
+                <td class="text-center">{{i+1}}</td>
+                <!-- <td style="text-align: center;">{{items.SCT_NAME}}</td> -->
+                <td>{{items.CREATE_DATE | date:'dd/MMM/yyyy '}} <br> {{items.CREATE_DATE | date:'hh:mm a'}}</td>
+                <td>{{items.REMARKS }}</td>
+                <td>{{items.EXTERNAL_REMARKS }}</td>
+                <td class="fw-bold" [style.color]="items.FOR_COLOR_CODE">{{items.CLIENT_WORK_STATUS}}</td>
+                <td>{{items.EMP_NAME}}</td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary active" data-bs-toggle="modal" title="Attachments"
+                  data-bs-target="#AttachmentModal3" (click)="GetWorkStatusUpAttach(items.CLNT_WORK_STATUS_ID)" *ngIf="items.ATTACH_FILE_COUNT>0"> <i class="fa fa-file"></i></button>
+                </td>
+
+                <!-- <td style="text-align: center;">{{items.DUR_STR}}</td> -->
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="AttachmentModal3" tabindex="-1" aria-labelledby="AttachmentModalLabel3" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="attch">Attachment </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="row">
+          <div class="col-12 my-3" *ngFor="let items of WorkstatusupdateAttachList;let i = index">
+            <div class="form-group">
+              <div class="form-group">
+                <!-- Check if there is an attachment -->
+                <div>
+                  <!-- <p>Attachment No {{i+1}}</p> -->
+                  <!-- Assuming the attachment is a URL to an image -->
+                  <!-- {{appconfig.url +'/Attendence/' + Attachment}}k -->
+                  <div *ngIf="isImage(items.ATTACH_FILE_PATH)">
+                    <img [src]="appconfig.url+'/SupportCall/'+items.ATTACH_FILE_PATH" alt="Attachment"
+                      class="img-fluid" />
+                  </div>
+                  <!-- Assuming the attachment is a link to a document -->
+                  <div>
+                    <!-- <a [href]="appconfig.url+'/Attendence/'+items.ATTACH_FILE_PATH" target="_blank" class="btn btn-primary">Download Attachment {{i+1}}</a> -->
+                    <a [href]="appconfig.url+'/SupportCall/'+items.ATTACH_FILE_PATH" download [attr.target]="'_blank'"
+                      class="btn btn-primary">
+                      Download Attachment {{i+1}}
+                    </a>
+                  </div>
+                </div>
+
+                <!-- <div *ngIf="!this.Attachment">
+                  <p>No attachment available.</p>
+                </div> -->
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

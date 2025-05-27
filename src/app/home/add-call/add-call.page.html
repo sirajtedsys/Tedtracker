@@ -1,0 +1,103 @@
+<div class="header">
+  
+  <i class="fa fa-arrow-left back-btn" (click)="NavigateTo('home/menu')"></i>
+  <h3>Add Call</h3>
+  
+  <i class="fa fa-refresh refresh-btn" (click)="OnPageLoad()"></i>
+</div>
+
+<div class="container-fluid cont">
+  <div class="row ">
+    <div class="col-6">
+      <div class="form-group">
+        <label for="name">No <span class="text-danger">*</span> </label>
+        <input id="WorkRefNo" type="text" disabled [(ngModel)]="call.WorkRefNo" class="form-control">
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+        <label for="">Date<span class="text-danger">*</span></label>
+        <input id="WorkAssignDate" [(ngModel)]="call.WorkAssignDate" type="date" [max]="this.Today" (change)="WorkAssignDateCahnge($event)" class="form-control">
+      </div>
+    </div>
+ 
+    </div>
+    <div class="row my-2">
+      
+      <div class="col-6 col-md-2"> <label for="name">Project<span class="text-danger">*</span></label></div>
+      <div class="col-6 col-md-4">  
+        <input type="text" class="form-select " (click)="OpenProjectModal()" placeholder="Select Project" [(ngModel)]="call.ProjectName" name="ProjectName" id="ProjectName">  
+      </div>
+
+    <div class="col-6 col-md-2"> <label for="name">Client<span class="text-danger">*</span></label></div>
+    <div class="col-6 col-md-4"> 
+      <input type="text" class="form-select " (click)="OpencustomerModal()" placeholder="Select Client" [(ngModel)]="call.CustomerName" name="CustomerName" id="CustomerName">  
+    </div>
+    <div class="col-6 col-md-2"> <label for="name">Module<span class="text-danger">*</span></label></div>
+    <div class="col-6 col-md-4"> 
+      <input type="text" class="form-select " (click)="OpenModuleModal()" placeholder="Select Module" [(ngModel)]="call.ModuleName" name="Module" id="ModuleName">  
+    </div>
+    </div>
+    <div class="row my-2">
+    <!-- <div class="col-6 col-md-2"> <label for="name">Project<span class="text-danger">*</span></label></div>
+    <div class="col-6 col-md-4">  
+      <input type="text" class="form-select " (click)="OpenProjectModal()" placeholder="Select Project" [(ngModel)]="call.ProjectName" name="ProjectName" id="ProjectName">  
+    </div> -->
+    <div class="col-6 col-md-2"> <label for="name">Call Type<span class="text-danger">*</span></label></div>
+    <div class="col-6 col-md-4">  <select name="CallTypeId" id="CallTypeId" class="form-select" [(ngModel)]="call.CallTypeId">
+      <option value="0">Select CallType</option>
+      <option  [value]="items.CallTypeId" *ngFor="let items of CallTypeList">{{items.CallType}}</option>
+    </select>
+    </div>
+  </div>
+  <div class="row my-2">
+    <div class="col-6 col-md-2"> <label for="name">Emergency<span class="text-danger">*</span></label></div>
+    <div class="col-6 col-md-4">  <select name="EmergencyId" id="EmergencyId"  class="form-select" [(ngModel)]="call.EmergencyId">
+      <option value="0">Select Emergency</option>
+      <option  [value]="items.EmergencyId" *ngFor="let items of EmergencyList">{{items.Emergency}}</option>
+    </select>
+    </div>
+    <div class="col-6 col-md-2"> <label for="name">Error Type<span class="text-danger">*</span></label></div>
+    <!-- (change)="ErrorTypeCahnge()" -->
+    <div class="col-6 col-md-4"> <select name="ErrorTypeId" id="ErrorTypeId" class="form-select" [(ngModel)]="call.ErrorTypeId" (change)="ErrorTypeCahnge()">
+      <option value="0">Select ErrorType</option>
+      <option  [value]="items.ErrorTypeId" *ngFor="let items of ErrorList">{{items.ErrorType}}</option>
+    </select>
+    </div>
+  </div>
+  <div class="row my-2">
+    <!-- <div class="col-6 col-md-2"> <label for="name">Assign To</label></div>
+    <div class="col-6 col-md-4">  <select name="EmployeeId" id="EmployeeId" [disabled]="checkErrorType()" class="form-select" [(ngModel)]="call.EmployeeId">
+      <option value="0">Select Employee</option>
+      <option  [value]="items.EmployeeId" *ngFor="let items of EmployeeList">{{items.EmployeeName}}</option>
+    </select> -->
+
+    <div class="col-6 col-md-2"> <label for="EmployeeId">Assign To</label></div>
+    <div class="col-6 col-md-4"> 
+      <input type="text" class="form-select " (click)="OpenEmployeeModal()" [disabled]="checkErrorType()" placeholder="Select Employee" [(ngModel)]="call.SelectedEmployeeName" name="EmployeeId" id="EmployeeId">  
+    </div>
+    <!-- </div> -->
+    <div class="col-6 col-md-2"> <label for="name">Called By</label></div>
+    <div class="col-6 col-md-4">  <input type="text" name="CalledBy" id="CalledBy"  [(ngModel)]="call.CalledBy" class="form-control">
+    </div>
+  </div>
+  <div class="row my-2">
+    <div class="col-6 col-md-2"> <label for="name">Call Description<span class="text-danger">*</span></label></div>
+    <div class="col-6 col-md-4">  <textarea type="text" name="CalledDesc" id="CalledDesc" [(ngModel)]="call.CalledDesc"  class="form-control"></textarea>
+    </div>
+     
+  </div>
+  <div class="row my-2">
+    <!-- File input to select multiple files -->
+    <input type="file"  #fileInput (change)="uploadFiles($event)" multiple />
+     
+  </div>
+
+  
+  <div class="row mb-5">
+    <div class="footer-buttons">
+      <button class="btn btn-outline-success active w-50" (click)="Submit()" >Submit</button>
+      <button class="btn btn-outline-danger active w-50" (click)="Clear()" >Clear</button>
+  </div>
+  </div>
+</div>

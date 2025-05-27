@@ -1,0 +1,24 @@
+
+
+<div class="header card">
+  
+  <i class="fa fa-arrow-left back-btn" (click)="NavigateTo('home/menu')"></i>
+  <h3>Profile</h3>
+</div>
+<div class="profile-container mt-5">
+
+  <!-- <i class="fas fa-user-circle profile-img"></i> -->
+   <img [src]="Imagesrc==null?'assets/images/doctor.png':Imagesrc" class="profile-img" alt="">
+
+
+  <div class="details">
+      <p>Name <span>{{EmpName}}</span></p>
+      <hr>
+      <p>Employee ID <span>{{EmpId}}</span></p>
+      <hr>
+      <p>Master ID <span>{{MasterId}}</span></p>
+  </div>
+
+  <button class="logout-btn" (click)="logout()">LOGOUT</button>
+</div>
+

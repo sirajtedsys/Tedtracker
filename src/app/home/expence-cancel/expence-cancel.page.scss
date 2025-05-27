@@ -1,0 +1,74 @@
+// .header {
+//     width: 100%;
+//     background: #ffffff;
+//     color: black;
+//     padding: 15px;
+//     text-align: center;
+//     font-size: 18px;
+//     font-weight: bold;
+//     border-bottom: 1px solid #ddd;
+//     position: relative;
+// }
+
+// .back-btn {
+//     position: absolute;
+//     left: 15px;
+//     top: 15px;
+//     font-size: 18px;
+//     color: #333;
+//     cursor: pointer;
+// }
+
+.content {
+    text-align: center;
+    padding: 20px;
+}
+
+.total-amount {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+}
+
+.total-icon {
+    font-size: 40px;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.details-container {
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+}
+
+.details-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    font-size: 16px;
+}
+
+.separator {
+    border-bottom: 1px dotted #bbb;
+}
+
+.cancel-btn {
+    width: 100%;
+    padding: 12px;
+    background: #dc3545;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.cancel-btn:active {
+    background: #b02a37;
+}

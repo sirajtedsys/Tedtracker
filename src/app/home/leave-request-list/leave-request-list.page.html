@@ -1,0 +1,172 @@
+<div class="header">
+  <i class="fa fa-arrow-left back-btn" (click)="NavigateTo('home/menu')"></i>
+  <h3>Leave Request List</h3>
+</div>
+
+<div class="container-fluid cont">
+
+  <div class="row ">
+    <div class="col-6 col-sm-6">
+      <div class="form-group">
+        <label for="FromDate">From Date<span class="text-danger">*</span></label>
+        <input id="FromDate" type="date" class="form-control"  [(ngModel)]="fromdate">
+      </div>
+    </div>
+    <div class="col-6 col-sm-6">
+      <div class="form-group">
+        <label for="ToDate">To Date<span class="text-danger">*</span></label>
+        <input id="ToDate" type="date" class="form-control"  [(ngModel)]="todate">
+      </div>
+    </div>
+    <div class="col-12 col-sm-6">
+      <div class="form-group">
+        <label>Empolyee</label>
+        <select name="EmpolyeeName" id="EmpolyeeName" class="form-select"  [(ngModel)]=" EmpolyeeName" >
+          <option value="">Select Empolyee</option>
+          <option *ngFor="let items of EmpolyeeNameList" [value]="items.EmployeeId">{{items.EmployeeName}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6">
+      <div class="form-group">
+        <label>Status</label>
+        <select name="status" id="status" class="form-select"  [(ngModel)]=" LeaveStatus" >
+          <option value="">Select Status</option>
+          <option *ngFor="let items of StatusList" [value]="items.LeaveStatusId">{{items.LeaveStatus}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row mt-3 mb-5">
+    <div class="footer-buttons">
+      <button class="btn btn-outline-success active w-50" (click)="Submit()">Submit</button>
+      <button class="btn btn-outline-danger active w-50" (click)="Clear()">Clear</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="container-fluid cont">
+
+  <!-- Responsive table -->
+
+  <div class="table-responsive" *ngIf="!ismobile && ActiveLeaveRequestList.length>0">
+    <table class="table border-dark table-bordered table-hover small-text-table">
+      <thead>
+        <tr>
+          <th style="width: 4%; text-align: center;">Sl.No</th>
+          <th style="width: 10%; text-align: center;">Request Date</th>
+          <th style="width: 10%; text-align: center;">Request No</th>
+          <th style="width: 10%; text-align: center;">From Date</th>
+          <th style="width: 10%; text-align: center;">To Date</th>
+          <th style="width: 10%; text-align: center;">Reason</th>
+          <th style="width: 10%; text-align: center;">Empolyee Name</th>
+          <th style="width: 10%; text-align: center;">Status</th>
+          <th style="width: 10%; text-align: center;">Created Date</th>
+          <th style="width: 10%; text-align: center;"></th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let items of ActiveLeaveRequestList; let i = index">
+
+          <td class="text-center">{{ i + 1 }}</td>
+          <td>{{ items.LeaveReqDate | date:'dd/MMM/yyyy' }}</td>
+          <td>{{ items.LeaveReqNo }}</td>
+          <td>{{ items.FromDate | date: 'dd/MMM/yyyy'}}</td>
+          <td>{{ items.ToDate | date: 'dd/MMM/yyyy'}}</td>
+          <td>{{ items.LeaveReason }}</td>
+          <td>{{ items.EmpName }}</td>
+          <td>{{ items.LeaveStatus }}</td>
+          <td>{{ items.CreateDate  | date: 'dd/MMM/yyyy'}}</td>
+<td>
+          <!-- <div class="task-actions mt-3 text-center"  -->
+            <button class="btn btn-outline-success m-1   btn-sm active" *ngIf="items.StatusId == 1"data-bs-toggle="modal" 
+            title="Update leave status" data-bs-target="#AttachmentModal1"
+             (click)="OnEditLeave(items)" ><i class="fa fa-pencil"></i></button>
+          <!-- </div> -->
+        </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row" *ngIf="ismobile">
+    <div class="col-md-6 my-2" *ngFor="let items of ActiveLeaveRequestList; let i = index">
+      <div class="card task-card">
+        <div class="card-body">
+          <h5 class="card-title"></h5>
+          <p class="card-text">
+
+            <strong>Request Date :</strong> {{ items.LeaveReqDate | date: 'dd-MMM-yyyy' }}<br>
+            <strong>Request No :</strong> {{ items.LeaveReqNo }}<br>
+            <strong>From Date :</strong> {{ items.FromDate | date: 'dd-MMM-yyyy' }}<br>
+            <strong>To Date :</strong> {{ items.ToDate | date: 'dd-MMM-yyyy'}}<br>
+            <strong>Empolyee Name :</strong> {{ items.EmpName }}<br>
+            <strong>Reason :</strong> {{ items.LeaveReason }}<br>
+            <strong>Status :</strong> {{ items.LeaveStatus }}<br>
+            <strong>Created Date :</strong> {{ items.CreateDate  | date: 'dd/MMM/yyyy'}}<br>
+          </p>
+
+            <div class="task-actions mt-3 text-center"  *ngIf="items.StatusId == 1">
+              <button class="btn btn-outline-success m-1 btn-sm active" data-bs-toggle="modal" 
+              title="Update leave status" data-bs-target="#AttachmentModal1"
+               (click)="OnEditLeave(items)" ><i class="fa fa-pencil"></i></button>
+            </div>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row" *ngIf="ActiveLeaveRequestList.length==0">
+    <div class="col-12 text-center">
+      <h5>No Previous Leave Request Found!</h5>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="modal fade" id="AttachmentModal1" tabindex="-1" aria-labelledby="AttachmentModalLabel1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="attch">Update Leave Request </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+        
+            <div class="col-12">
+              <div class="form-group">
+                <label for="stauts">Status<span class="text-danger">*</span></label>
+                <select name="stauts" id="stauts" class="form-select" [(ngModel)]="Ws_Status">
+                  <option value="">Select a Status</option>
+                  <option [value]="items.LeaveStatusId" 
+                  *ngFor="let items of ModalStatusList">
+                    {{items.LeaveStatus}}</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="col-12">
+              <label for="rmdks">Remarks<span class="text-danger">*</span> </label>
+              <textarea name="rmdks" id="rmdks" class="form-control" placeholder=" Remarks "
+                [(ngModel)]="Ws_Remarks" rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" (click)="SubmitTaskStatus()" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

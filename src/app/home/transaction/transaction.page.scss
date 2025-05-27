@@ -1,0 +1,68 @@
+.date-container {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.date-picker {
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    font-weight: bold;
+    color: #6c757d;
+    cursor: pointer;
+}
+
+.transaction-container {
+    // padding: 20px;
+}
+
+.transaction-card {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.transaction-icon {
+    font-size: 20px;
+    color: #333;
+    margin-right: 10px;
+}
+
+.transaction-info {
+    flex-grow: 1;
+}
+
+.transaction-info p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.transaction-info small {
+    color: #6c757d;
+    font-size: 12px;
+}
+
+.amount {
+    font-weight: bold;
+    color: #d63384;
+    margin-left: auto;
+}
+
+.arrow-icon {
+    font-size: 18px;
+    color: #333;
+    margin-left: 10px;
+}
+
+.transaction-details {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}

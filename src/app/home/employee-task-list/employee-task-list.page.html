@@ -1,0 +1,452 @@
+
+
+
+<!-- <div class="p-4 welwrapper " > -->
+  <!-- <h2 class="text-center mb-4">Assigned Tasks</h2> -->
+  <div class="header card">
+    <!-- <i class="fa fa-arrow-left back-btn" (click)="NavigateTo('home/transaction')"></i> -->
+     
+    <i class="fa fa-arrow-left back-btn" (click)="NavigateTo('home/menu')"></i>
+      <h3>
+        
+        Inbox
+      </h3>
+ 
+  </div>
+
+<div class="container-fluid cont">
+
+
+  <div class="accordion" id="accordionExample">
+    <!-- Accordion Item 1 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Filters
+          </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <div class="row">
+            
+              <div class="col-6 col-md-4">
+                <div class="form-group">
+                  <label for="SelectedClient">Client</label>
+                  <!-- <select name="SelectedClient" id="SelectedClient" class="form-select" [(ngModel)]="SelectedClient" (change)="onCustomerChange($event)">
+                    <option value="0">Select Client</option>
+                    <option [value]="items.CustomerId" *ngFor="let items of ClientList">{{items.CustomerName}}</option>
+                  </select> -->
+                  <input type="text" class="form-select " (click)="OpencustomerModal()" placeholder="Select Client" [(ngModel)]="SelectedClientName" name="CustomerName" id="CustomerName">  
+      
+                </div>
+              </div>
+              <div class="col-6 col-md-4">
+                <div class="form-group">
+                  <label for="Selectedmodule">Module</label>
+                  <!-- <select name="Selectedmodule" id="Selectedmodule" class="form-select" [(ngModel)]="Selectedmodule">
+                    <option value="0">Select Module</option>
+                    <option [value]="items.ModuleId" *ngFor="let items of ModuleList">{{items.Module}}</option>
+                  </select> -->
+                  <input type="text" class="form-select " (click)="OpenModuleModal()" placeholder="Select Module" [(ngModel)]="SelectedmoduleName" name="Module" id="ModuleName">  
+     
+                </div>
+              </div>
+
+              
+              <div class="col-6 col-md-4">
+                <div class="form-group">
+                  <label for="SelectedProject">Project</label>
+                  <!-- <select name="SelectedProject" id="SelectedProject" class="form-select" [(ngModel)]="SelectedProject">
+                    <option value="0">Select Project</option>
+                    <option [value]="items.ProjectId" *ngFor="let items of ProjectList">{{items.ProjectName}}</option>
+                  </select> -->
+                  <input type="text" class="form-select " (click)="OpenProjectModal()" placeholder="Select Project" [(ngModel)]="SelectedProjectName" name="ProjectName" id="ProjectName">  
+    
+                </div>
+              </div>
+          
+
+
+              <div class="col-6 col-md-4">
+                <div class="form-group">
+                  <label for="SelectedCallType">CallType</label>
+                  <select name="SelectedCallType" id="SelectedCallType" class="form-select" [(ngModel)]="SelectedCallType">
+                    <option value="0">Select CallType</option>
+                    <option [value]="items.CallTypeId" *ngFor="let items of CallTypeList">{{items.CallType}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-6 col-md-4">
+                <div class="form-group">
+                  <label for="SelectedCallType">Is Emergency</label>
+                  <select name="SelectedCallType" id="SelectedCallType" class="form-select" [(ngModel)]="SelectedEmergency">
+                    <option value="0">Select Emergency</option>
+                    <option [value]="items.EmergencyId" *ngFor="let items of EmergencyList">{{items.Emergency}}</option>
+                     <!-- <option value="yes">Yes</option>
+                     <option value="no">No</option> -->
+                  </select>
+                </div>
+              </div>
+              <div class="col-6 col-md-4">
+                <div class="form-group">
+                  <label for="SelectedCallType">Error Type</label>
+                  <select name="SelectedCallType" id="SelectedCallType" class="form-select" [(ngModel)]="SelectedErrorType">
+                    <option value="0">Select ErrorType</option>
+                    <option [value]="items.ErrorTypeId" *ngFor="let items of ErrorTypeList">{{items.ErrorType}}</option>
+                  </select>
+                </div>
+              </div>
+
+
+              <!-- <div class="col-6">
+                <div class="form-group">
+                  <label for="SelectedStatus">Status</label>
+                  <select name="SelectedStatus" id="SelectedStatus" class="form-select" [(ngModel)]="SelectedStatus">
+                    <option value="">Select Status</option >
+                    <option [value]="items.Id" *ngFor="let items of StatusList">Select Status</option>
+                  </select>
+                </div>
+              </div> -->
+                <div class="col-12 mt-2">
+                  
+                  <button (click)="ClearFilters()" class="btn-outline-danger btn active w-50">Clear</button>
+                  <button  class="btn-outline-success btn active w-50" >Find</button>
+                </div>
+            </div>
+          </div>
+      </div>
+  </div>
+  </div>
+
+
+
+
+  <div class="row mb-3 " >
+    <div class="col-md-12 my-1">
+      <div class="form-group">
+        <!-- <label for="saluteid">Status</label>/ -->
+        <!-- <select class="form-select" id="DesignationId" name="DesignationId" [(ngModel)]="TaskStatusFilter" (change)="ChangeTaskiListing($event)" >
+          <option Value="0">Select Task Status</option>
+          <option *ngFor="let option of TaskStatusList" [value]="option.commstrid
+          ">{{ option.commstrnam }}</option>
+        </select> -->
+   
+      </div>
+    </div>
+
+    <div class="col-md-12 my-1" *ngIf="this.TaskListDup.length!=0">
+      <input type="text" id="searchBar" (input)="search($event)" class="form-control" placeholder="Search...">
+  </div>
+  </div>
+
+  <div class="row text-center" *ngIf="TaskList.length==0 ">
+    <div class="col-12 text-center">
+        <label class="text-center fw-bolder">
+          No Task Found
+        </label>
+    </div>  
+    </div>
+
+  <!-- Task List -->
+  <div class="row"  *ngIf="viewtype=='table'">
+<ng-container *ngIf="ismobile">
+    <!-- Example Task Card -->
+    <div class="col-md-6 col-lg-4" *ngFor="let items of TaskList;let i = index"  >
+      <div class="card task-card">
+        <div class="card-body" [ngClass]="items.EMERGENCY_TYPE=='Yes'?'emergency-row':''">
+          <h5 class="card-title">{{items.Subject}}</h5>
+          <p class="card-text">
+            <strong>Work Ref : </strong> {{items.WORK_REFNO}}<br>
+            <strong>Date : </strong> {{items.WORK_DATE | date:'dd/MMM/yyyy'}}<br>
+            <!-- <strong>Client  : </strong> {{items.CUST_NAME}}<br> -->
+            <strong>Project : </strong> {{items.PROJECT_NAME}}<br>
+            <strong>Module : </strong> {{items.MODULE_NAME}}<br>
+            <strong>Call Type : </strong> {{items.CALL_TYPE}}<br>
+            <!-- <strong>Emergency  : </strong> <span> {{items.EMERGENCY_TYPE}} </span><br> -->
+            <strong>Error Type : </strong> {{items.ERROR_TYPE}}<br>
+            <strong> Task Status : </strong>{{items.WORK_STATUS}}<br>
+            <strong>Created By : </strong> {{items.EMP_NAME}}<br>
+            <strong>Assigned By : </strong> {{items.ASSIGNED_BY}}<br>
+            <strong>Called By : </strong> {{items.CALLED_BY}}<br>
+            
+            <strong> Description : </strong>{{items.CALLED_DESCRIPTION}}
+          </p>
+          <span class="task-status in-progress">{{items.TaskStatusName}}</span>
+          <div class="task-actions mt-3">
+            <button *ngIf="items.WORK_STATUS_ID==2" (click)="ChangeTaskStatus(items,3)" class="btn btn-success btn-sm">Open</button>
+           
+              <button *ngIf="items.WORK_STATUS_ID==2" (click)="RejectWork(items)" class="btn btn-danger btn-sm">Reject</button>
+            <button *ngIf="items.WORK_STATUS_ID>2 &&items.WORK_STATUS_ID!=5 " (click)="SelectedbtnStatus(items,5)" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Pause</button>
+            <button *ngIf="items.WORK_STATUS_ID>2 &&items.WORK_STATUS_ID!=5 "  class="btn btn-danger btn-sm" (click)="SelectedbtnStatus(items,4)" data-bs-toggle="modal" data-bs-target="#exampleModal">Close</button>
+            <button *ngIf="items.WORK_STATUS_ID==5" (click)="ChangeTaskStatus(items,3)" class="btn btn-success btn-sm">Restart</button>
+            <button *ngIf="items.WORK_STATUS_ID>2 &&items.WORK_STATUS_ID!=5" (click)="SelectedbtnStatus(items,7)" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">In Progress</button>
+            <button *ngIf="items.WORK_STATUS_ID>2 &&items.WORK_STATUS_ID!=5" (click)="SelectedbtnStatus(items,2)" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Re assign</button>
+            <!-- <button (click)="ChangetaskStatus(items)" class="btn btn-success btn-sm">Change Task Status</button> -->
+            <button *ngIf="items.ATTACH_FILE_COUNT>0"  (click)="GetAttach(items.WORK_ID)"  class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#AttachmentModal">Attachment</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <span *ngIf="!ismobile">
+    <!-- <div class="table-responsive">
+      <table class="table border-dark table-bordered table-hover small-text-table"> -->
+        <div class="container-fluid">
+        <div class="table-responsive w-100">
+          <table class="table w-100 border-dark table-bordered table-hover small-text-table">
+          <thead>
+              <tr>
+                  <th style="width: 4%;text-align: center;">Sl.No</th>
+                  <th style="text-align: center;">Work Ref</th>
+                  <th style="text-align: center;">Date</th>
+                  <!-- <th style="width: 10%;text-align: center;">Client</th> -->
+                  <th style="text-align: center;">Project</th>
+                  <!-- <th style="width: 10%;">BreakOut</th>
+                  <th style="width: 10%;">BreakIn</th> -->
+                  <th style="text-align: center;"> Module</th>
+                  <th style="text-align: center;">Call Type </th>
+                  <!-- <th style="text-align: center;">Emergency</th> -->
+                  <th style="text-align: center;">Error Type</th>
+                  <th style="text-align: center;">Task Status</th>
+                  <th style="Text-align: center;">Created By </th>
+                  <th style="text-align: center;">Assigned By </th>
+                  <th style="text-align: center;">Called By </th>
+                  <th style="text-align: center;">Description </th>
+                  <th ></th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr  *ngFor="let items of TaskList;let i = index"   [ngClass]="items.EMERGENCY_TYPE=='Yes'?'emergency-row':''">
+              <td class="text-center">{{i+1}}</td>
+              <td style="text-align: center;">{{items.WORK_REFNO}}</td>
+              <td style="text-align: center;">{{items.WORK_DATE | date:'dd/MMM/yyyy'}}</td>
+              <!-- <td style="text-align: center;">{{items.CUST_NAME}}</td> -->
+              <td style="text-align: center;">{{items.PROJECT_NAME }}</td>
+              <!-- <td>{{items.BREAK_OUT | date:'hh:mm a'}}</td>
+              <td>{{items.BREAK_IN | date:'hh:mm a'}}</td> -->
+              <td style="text-align: center;">{{items.MODULE_NAME }}</td>
+              <td style="text-align: center;">{{items.CALL_TYPE}}</td>
+              <!-- <td>{{items.BREAK_HRS_STR}}</td> -->
+              <!-- <td style="text-align: center;">{{items.EMERGENCY_TYPE}}</td> -->
+              <td style="text-align: center;">{{items.ERROR_TYPE}}</td>
+              <td style="text-align: center;">{{items.WORK_STATUS}}</td>
+              <td style="text-align: center;">{{items.EMP_NAME}}</td>
+              <td style="text-align: center;">{{items.ASSIGNED_BY}}</td>
+              <td style="text-align: center;">{{items.CALLED_BY}}</td>
+              <td style="text-align: center;">{{items.CALLED_DESCRIPTION}}</td>
+              <td >
+
+                <button *ngIf="items.WORK_STATUS_ID==2" (click)="ChangeTaskStatus(items,3)" class="btn btn-success btn-sm">Open</button>
+           
+                <button *ngIf="items.WORK_STATUS_ID==2" (click)="RejectWork(items)" class="btn btn-danger btn-sm">Reject</button>
+              <button *ngIf="items.WORK_STATUS_ID>2 &&items.WORK_STATUS_ID!=5 " (click)="SelectedbtnStatus(items,5)" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Pause</button>
+              <button *ngIf="items.WORK_STATUS_ID>2 &&items.WORK_STATUS_ID!=5 "  class="btn btn-danger btn-sm" (click)="SelectedbtnStatus(items,4)" data-bs-toggle="modal" data-bs-target="#exampleModal">Close</button>
+              <button *ngIf="items.WORK_STATUS_ID==5" (click)="ChangeTaskStatus(items,3)" class="btn btn-success btn-sm">Restart</button>
+              <button *ngIf="items.WORK_STATUS_ID>2 &&items.WORK_STATUS_ID!=5" (click)="SelectedbtnStatus(items,7)" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">In Progress</button>
+              <button *ngIf="items.WORK_STATUS_ID>2 &&items.WORK_STATUS_ID!=5" (click)="SelectedbtnStatus(items,2)" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Re assign</button>
+              <!-- <button (click)="ChangetaskStatus(items)" class="btn btn-success btn-sm">Change Task Status</button> -->
+              <button *ngIf="items.ATTACH_FILE_COUNT>0"  (click)="GetAttach(items.WORK_ID)"  class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#AttachmentModal">Attachment</button>
+  
+
+
+
+
+              </td>
+                
+              <!-- <td>{{items.TOT_BREAK_HRS_MIN}}</td>
+              <td>{{calculateTotalWorkingTime2(items)}}</td> -->
+          </tr>
+      
+
+              <!-- <tr  *ngFor="let items of ReportData;let i = index">
+                  <td class="text-center">{{i+1}}</td>
+                  <td>{{items.DT | date:'dd-MMM-yyyy'}}</td>
+                  <td>{{items.EMP_NAME}}</td>
+                  <td>{{items.PUNCH_IN | date:'hh:mm a'}}</td>
+                  <td>{{items.PUNCH_OUT | date:'hh:mm a'}}</td>
+                  <td>{{calculateTotalWorkingTime1(items)}}</td>
+                  <td>{{items.TOT_BREAK_HRS_MIN}}</td>
+                  <td>{{calculateTotalWorkingTime2(items)}}</td>
+                
+                 
+              </tr>
+           -->
+          </tbody>
+      </table>
+ </div>
+    </div>
+  </span>
+
+
+    <!-- {
+      "WORK_REFNO": "W000012-03/2025",
+      "WORK_DATE": "2025-03-21T00:00:00",
+      "CUST_ID": 1210000394,
+      "CUST_NAME": "AROHA CLINIC",
+      "PROJECT_ID": 1210000024,
+      "PROJECT_NAME": "Aroha Website New",
+      "MODULE_ID": 1,
+      "MODULE_NAME": "ADMIN",
+      "CALL_TYPE_ID": 1,
+      "CALL_TYPE": "SUPPORT",
+      "EMERGENCY_ID": 1,
+      "EMERGENCY_TYPE": "Yes",
+      "ERROR_TYPE_ID": 5,
+      "ERROR_TYPE": "Customization",
+      "CALLED_BY": "see",
+      "CALLED_DESCRIPTION": "new "
+  } -->
+
+    <!-- Another Example Task Card -->
+ 
+  </div>
+
+
+
+
+</div>
+
+
+<!-- Button to trigger modal -->
+<!-- <button type="button" class="btn btn-primary" >
+  Open Modal
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{SelectedbtnStatusName}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <label for="TotalWorkPercentage">Completed Percentage<span class="text-danger">*</span></label>
+              <input type="number" min="0" max="100" placeholder="0-100" class="form-control" 
+                     [(ngModel)]="dws.TotalWorkPercentage" 
+                     id="TotalWorkPercentage" 
+                     (ngModelChange)="onTotalWorkPercentageChange($event)">
+              <!-- Error message below the input -->
+              <div *ngIf="totalWorkPercentageError" class="text-danger">{{ totalWorkPercentageError }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="TotalWorkHours">Total Hour</label>
+              <input type="number" placeholder="total hours only" class="form-control" 
+                     [(ngModel)]="dws.TotalWorkHours" 
+                     id="TotalWorkHours" 
+                     (ngModelChange)="onTotalWorkHoursChange($event)">
+              <!-- Error message below the input -->
+              <div *ngIf="totalWorkHoursError" class="text-danger">{{ totalWorkHoursError }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="TotalWorkMinutes">Total Minutes</label>
+              <input type="number" min="0" max="60" placeholder="0-60" class="form-control" 
+                     [(ngModel)]="dws.TotalWorkMinutes" 
+                     id="TotalWorkMinutes" 
+                     (ngModelChange)="onTotalWorkMinutesChange($event)">
+              <!-- Error message below the input -->
+              <div *ngIf="totalWorkMinutesError" class="text-danger">{{ totalWorkMinutesError }}</div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label for="ProgressNote">Remarks<span class="text-danger">*</span></label>
+              <textarea name="ProgressNote" rows="3" id="ProgressNote" placeholder="Progress note" class="form-control" 
+                        [(ngModel)]="dws.ProgressNote"></textarea>
+              <!-- You can add similar error message for the ProgressNote field if needed -->
+            </div>
+          </div>
+
+          <div class="col-12 mt-3" *ngIf="dws.StatusId=='4'">
+            <div class="form-group">
+              <!-- <label for="" class="form-input-label">Exe Updated</label> -->
+              <input type="checkbox" class="form-input-check" id="" name="">  Exe Updated
+            </div>
+          </div>
+
+          <div class="col-12" *ngIf="dws.StatusId=='4'">
+            <div class="form-group">
+              <label for="ProgressNote">Emr Remarks</label>
+              <textarea name="ProgressNote" id="ProgressNote" rows="3" placeholder="Progress note" class="form-control" 
+                       ></textarea>
+              <!-- You can add similar error message for the ProgressNote field if needed -->
+            </div>
+          </div>
+
+          <div class="col-12" *ngIf="dws.StatusId=='2'">
+            <div class="form-group">
+              <label for="empid">Employee<span class="text-danger">*</span></label>
+              <select name="empid" id="empid" class="form-select" [(ngModel)]="dws.EmpId">
+                <option value="0">Select a Employee to Assign</option>
+                <option [value]="items.EmployeeId" *ngFor="let items of Employeelist">{{items.EmployeeName}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+        <button type="button" class="btn btn-danger" (click)="ClearBtnStsData()" >Clear</button>
+        <button type="button" class="btn btn-success" (click)="Submit()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="AttachmentModal" tabindex="-1" aria-labelledby="AttachmentModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="attch">Attachment </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="row">
+          <div class="col-12 my-3" *ngFor="let items of AttachList;let i = index">
+            <div class="form-group">
+              <div class="form-group">
+                <!-- Check if there is an attachment -->
+                <div >
+                  <!-- <p>Attachment No {{i+1}}</p> -->
+                  <!-- Assuming the attachment is a URL to an image -->
+                   <!-- {{appconfig.url +'/Attendence/' + Attachment}}k -->
+                  <div *ngIf="isImage(items.ATTACH_FILE_PATH)">
+                    <img [src]="appconfig.url+'/Attendence/'+items.ATTACH_FILE_PATH" alt="Attachment" class="img-fluid" />
+                  </div>
+                  <!-- Assuming the attachment is a link to a document -->
+                  <div >
+                    <!-- <a [href]="appconfig.url+'/Attendence/'+items.ATTACH_FILE_PATH" target="_blank" class="btn btn-primary">Download Attachment {{i+1}}</a> -->
+                    <a [href]="appconfig.url+'/Attendence/'+items.ATTACH_FILE_PATH" download [attr.target]="'_blank'" class="btn btn-primary">
+                      Download Attachment {{i+1}}
+                    </a>
+                  </div>
+                </div>
+             
+                <!-- <div *ngIf="!this.Attachment">
+                  <p>No attachment available.</p>
+                </div> -->
+              </div>
+            </div>
+       
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Add more task cards as needed -->
+<!-- </div> -->

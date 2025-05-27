@@ -1,0 +1,15 @@
+<body>
+  
+<div class="login-container">
+  <h3 class="mb-4">Login</h3>
+  <div class="mb-3">
+      <input type="text" class="form-control" [(ngModel)]="UserName" placeholder="Username">
+  </div>
+  <div class="mb-3">
+      <input type="password" class="form-control" [(ngModel)]="Password"  placeholder="Password">
+  </div>
+  <button (click)="Login()" class="btn login-btn">LOGIN</button>
+  <p (click)="NavigateTo('config')" class="configure">configure...?</p>
+</div>
+
+</body>

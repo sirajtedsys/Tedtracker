@@ -1,0 +1,268 @@
+
+
+
+  <div class="header">
+    <i class="fa fa-arrow-left back-btn" (click)="NavigateTo('home/menu')"></i>
+    <h3>
+      
+      Attendance Report
+    </h3>
+   </div>
+  <div class="container-fluid cont">
+  <!-- Search bar and button -->
+  <div class="table-controls mb-2">
+    <div class="row my-1">
+      <div class="col-5 col-sm-5">
+          <div class="form-group">
+            <label for="empmobile">From</label>
+            <input type="date" class="form-control" [max]="Today" placeholder="" id="strFDate" name="strFDate" [(ngModel)]="strFDate">
+          </div>        
+      </div>
+
+      <div class="col-4 col-sm-4">
+        <div class="form-group">
+          <label for="empmobile">To</label>
+          <input type="date" class="form-control" [min]="strFDate"  [max]="Today" placeholder="" id="strTDate" name="strTDate" [(ngModel)]="strTDate">
+        </div>        
+    </div>
+    <!-- <div class="col-3">
+      <div class="form-group">
+        <label for="emp">Employee</label>
+        <select name="emp" class="form-select" id="emp" [(ngModel)]="Empid">
+          <option [value]="0">Select Employee</option>
+          <option [value]="item.Id" *ngFor="let item of Employeelist">{{item.Name}}</option>
+        </select>
+
+     </div>        
+  </div> -->
+
+    <!-- <div class="col-1">
+      <div class="form-group">
+        <label for="empmobile">&nbsp;</label>
+       <button  (click)="GetReport(false);viewtype='report'" class="btn w-100 py-2 pb-1 btn-outline-success active"> <i class="fa fa-paper-plane"></i> </button>
+      </div>  
+    </div> -->
+    <div class="col-2 col-sm-2">
+      <div class="form-group">
+        <label for="empmobile">&nbsp;</label>
+       <button  (click)="GetReport1(true);viewtype='summary'" class="btn w-100 py-2 pb-1 btn-outline-success active"><i class="fa fa-paper-plane"></i></button>
+      </div>  
+    </div>
+    <div class="col-2 col-sm-1" *ngIf=" ReportData1.length>0">
+          
+      <label for="empmobile">&nbsp;</label>
+      <button class="btn   w-100 py-2 pb-1 btn-outline-primary active"  (click)="exportToExcel()"> <i class="fa fa-file-excel"></i></button>
+    </div>
+    </div>  
+
+  </div>
+  <div class="row">
+  
+    <ng-container *ngIf="ismobile && viewtype=='report'">
+      <!-- Example Task Card -->
+      <div class="col-md-6 col-lg-4" *ngFor="let items of ReportData;let i = index">
+        <div class="card task-card">
+          <div class="card-body">
+            <!-- <h5 class="card-title">{{items.Subject}}</h5> -->
+            <p class="card-text">
+              <!-- <strong>Department : </strong> {{items.SCT_NAME}}<br> -->
+              <strong>Date : </strong> {{items.DT | date:'dd-MMM-yyyy'}}<br>
+              <strong>CheckIn  : </strong>{{items.PUNCH_IN | date:'hh:mm a'}}<br>
+              <strong>BreakOut : </strong> {{items.BREAK_OUT | date:'hh:mm a'}}<br>
+              <strong>BreakIn : </strong> {{items.BREAK_IN | date:'hh:mm a'}}<br>
+              <strong>CheckOut : </strong> {{items.PUNCH_OUT | date:'hh:mm a'}}<br>
+              <strong>Total Hours  : </strong> <span>{{items.BREAK_HRS_STR}}</span><br>
+              <strong>Total Break Hours : </strong> {{items.ERROR_TYPE}}<br>
+              <strong> Total Work Hours: </strong>{{items.WORK_HRS_STR}}<br>
+              <!-- <strong>Created By : </strong> {{items.EMP_NAME}}<br>
+              <strong>Assigned By : </strong> {{items.ASSIGNED_BY}}<br>
+              <strong>Called By : </strong> {{items.CALLED_BY}}<br>
+              
+              <strong> Description : </strong>{{items.CALLED_DESCRIPTION}} -->
+            </p>
+            <span class="task-status in-progress"></span>
+           
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  
+    <ng-container *ngIf="ismobile && viewtype=='summary'">
+      <!-- Example Task Card -->
+      <div class="col-md-6 col-lg-4" *ngFor="let items of ReportData1;let i = index">
+        <div class="card task-card">
+          <div class="card-body">
+            <!-- <h5 class="card-title">{{items.Subject}}</h5> -->
+            <p class="card-text">
+              <!-- <strong>Department : </strong> {{items.SCT_NAME}}<br> -->
+              <strong>Date : </strong> {{items.DT | date:'dd-MMM-yyyy'}}<br>
+              <strong>In  : </strong>{{items.PUNCH_IN | date:'hh:mm a'}}<br>
+              <strong>Out : </strong> {{items.PUNCH_OUT | date:'hh:mm a'}}<br>
+              <!-- <strong>BreakIn : </strong> {{items.BREAK_IN | date:'hh:mm a'}}<br>
+              <strong>CheckOut : </strong> {{items.PUNCH_OUT | date:'hh:mm a'}}<br> -->
+              <strong>Total Hours  : </strong> <span>{{items.TOT_WORK_HRS_STR}}</span><br>
+              <strong>Total Break Hours : </strong> {{items.TOT_BREAK_HRS_STR}}<br>
+              <strong> Total Work Hours: </strong>{{items.DUR_STR}}<br>
+              <!-- <strong>Created By : </strong> {{items.EMP_NAME}}<br>
+              <strong>Assigned By : </strong> {{items.ASSIGNED_BY}}<br>
+              <strong>Called By : </strong> {{items.CALLED_BY}}<br>
+              
+              <strong> Description : </strong>{{items.CALLED_DESCRIPTION}} -->
+            </p>
+            <span class="task-status in-progress"></span>
+            <div class="task-actions mt-3">
+              <button class="btn btn-outline-success btn-sm active" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="ViewReport(items)">View</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  
+    
+  </div>
+  <!-- Responsive table -->
+  <div class="table-responsive" *ngIf="!ismobile && viewtype=='report'">
+      <table class="table border-dark table-bordered table-hover small-text-table">
+          <thead>
+              <tr>
+                  <!-- 
+                  <th style="width: 4%;">Sl.No</th>
+                  <th style="width: 10%;">Date</th>
+                  <th style="width: 10%;">CheckIn</th>
+                  <th style="width: 10%;"> CheckOut</th>
+                  <th style="width: 10%;">Total Hours</th>
+                  <th style="width: 10%;">Total Break</th> 
+                  <th style="width: 10%;">Final Hours</th>  -->
+                  <th style="width: 4%;">Sl.No</th>
+                  <!-- <th style="width: 10%;">Department</th> -->
+                  <th style="width: 10%;">Date</th>
+                  <th style="width: 10%;">CheckIn</th>
+                  <th style="width: 10%;">BreakOut</th>
+                  <th style="width: 10%;">BreakIn</th>
+                  <th style="width: 10%;"> CheckOut</th>
+                  <th style="width: 10%;">Total Hours</th>
+                  <th style="width: 10%;">Total Break Hours</th>
+                  <th style="width: 10%;">Total Work Hours</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr  *ngFor="let items of ReportData;let i = index">
+                  <td class="text-center">{{i+1}}</td>
+                  <!-- <td>{{items.SCT_NAME}}</td> -->
+                  <td>{{items.DT | date:'dd-MMM-yyyy'}}</td>
+                  <td>{{items.PUNCH_IN | date:'hh:mm a'}}</td>
+                  <td>{{items.BREAK_OUT | date:'hh:mm a'}}</td>
+                  <td>{{items.BREAK_IN | date:'hh:mm a'}}</td>
+                  <td>{{items.PUNCH_OUT | date:'hh:mm a'}}</td>
+                  <td>{{items.TOT_HRS_STR}}</td>
+                  <td>{{items.BREAK_HRS_STR}}</td>
+                  <td>{{items.WORK_HRS_STR}}</td>
+                  <!-- <td>{{items.TOT_BREAK_HRS_MIN}}</td>
+                  <td>{{calculateTotalWorkingTime2(items)}}</td> -->
+              </tr>
+          
+          </tbody>
+      </table>
+  </div>
+
+
+    <!-- Responsive table -->
+    <div class="table-responsive" *ngIf="!ismobile && viewtype=='summary'">
+      <table class="table border-dark table-bordered table-hover small-text-table">
+          <thead>
+              <tr>
+                  <th style="width: 4%;text-align: center;">Sl.No</th>
+                  <!-- <th style="width: 10%;text-align: center;">Department</th> -->
+                  <th style="width: 10%;text-align: center;">Date</th>
+                  <th style="width: 10%;text-align: center;">In</th>
+                  <th style="width: 10%;text-align: center;">Out</th>
+                  <th style="width: 10%;text-align: center;">Total Hours</th>
+                  <th style="width: 10%;text-align: center;">Total Break Hours</th>
+                 
+                  <th style="width: 10%;text-align: center;">Total Work Hours</th>
+                  <th style="width: 4%;"></th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr  *ngFor="let items of ReportData1;let i = index">
+                  <td class="text-center">{{i+1}}</td>
+                  <!-- <td style="text-align: center;">{{items.SCT_NAME}}</td> -->
+                  <td style="text-align: center;">{{items.DT | date:'dd-MMM-yyyy'}}</td>
+                  <td style="text-align: center;">{{items.PUNCH_IN | date:'hh:mm a'}}</td>
+                  <td style="text-align: center;">{{items.PUNCH_OUT | date:'hh:mm a'}}</td>
+                  <td style="text-align: center;">{{items.TOT_WORK_HRS_STR}}</td>
+                  <td style="text-align: center;">{{items.TOT_BREAK_HRS_STR}}</td>
+                 
+                  <td style="text-align: center;">{{items.DUR_STR}}</td>
+                  <td><button class="btn btn-outline-success btn-sm active" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="ViewReport(items)">View</button></td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Punch Summary</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table border-dark table-bordered table-hover small-text-table">
+          <thead>
+              <tr>
+                <th style="width:3%"></th>
+                  <th style="width: 10%;">Punch Time</th>
+                  <th style="width: 10%;">Atted. Type</th>
+                  <th style="width: 10%;">Punch Status</th>
+                  <th style="width: 10%;"></th>
+              </tr>
+          </thead>
+          <tbody >
+         <tr *ngFor="let items of BreakDet;let i = index">
+          <td>{{i+1}}</td>
+          <td>{{items['Punch Time']| date:'dd/MMM/yyyy hh:mm a'}}</td>
+          <td>{{items['Att. Type']}}</td>
+          <td>{{items.Status}}</td>
+         <td><button class="btn btn-outline-success btn-sm active" data-bs-toggle="modal" data-bs-target="#MissPunchModal" (click)="ViewPunch(items)" >Miss Punch</button></td> 
+         </tr>
+          </tbody>
+            
+        </table>
+      
+        
+        
+      </div>
+  
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="MissPunchModal"  aria-labelledby="MissPunchModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="MissPunchModalLabel">Miss Puch Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row my-2">
+          <div class="col-12 col-md-12"> <label id="remarks">Remarks</label>
+          </div>
+            <div class="col-12 col-md-12">  <textarea type="text" name="PunchRemarks" id="PunchRemarks" class="form-control" [(ngModel)]="attend.PunchRemarks"></textarea>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" (click)="Submit1()" class="btn btn-primary">Save changes</button>
+      </div>
+      <!-- <button class="btn btn-outline-success active w-30" >Submit</button> -->
+    </div>
+  </div>
+</div>

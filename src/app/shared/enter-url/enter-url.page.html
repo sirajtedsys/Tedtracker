@@ -1,0 +1,30 @@
+<!-- <div class="container center-screen">
+  <div class="url-input-container text-center">
+      <h3 class="mb-4">Enter URL</h3>
+      <form>
+          <div class="form-group">
+              <input type="url" class="form-control" id="urlInput" placeholder="Enter URL" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Submit</button>
+      </form>
+  </div>
+</div> -->
+<body>
+  
+<div class="url-input-container ">
+  <h3>Enter URL </h3>
+  <form>
+    <div class="form-group">
+        <select name="ur" id="ur" [(ngModel)]="ur" class="form-select">
+            <option value="http://">http</option>
+            <option value="https://">https</option>
+        </select>
+    </div>
+      <div class="form-group">
+          <input type="url" class="form-control" name="urlinput" [(ngModel)]="Url" id="urlInput" placeholder="e.g., 192.0.0.0:8100" required>
+      </div>
+      <button type="submit" (click)="AddUrl()" class="btn btn-custom">Confirm Url</button>
+  </form>
+</div>
+
+</body>

@@ -1,0 +1,49 @@
+<div class="header card">
+  
+  <i class="fa fa-arrow-left back-btn" (click)="NavigateTo('home/menu')"></i>
+  Transactions
+</div>
+
+<div class="container-fluid cont">
+  <div class="date-container">
+      <input type="date" id="transactionDate" class="date-picker" [max]="Today" [(ngModel)]="SelectedDate" (change)="Datechange($event)" name="selecteddate">
+  </div>
+
+
+  <!-- {
+    "CONFIRM_STATUS": "N",
+    "EXP_DTLS_SLNO": "1",
+    "ACC_MASTER_NAME": "Robin Raju - Advance",
+    "ACC_EXPENCE": "Food Expenses",
+    "EXP_DTLS_AMT": "200",
+    "EXP_DTLS_REMARK": "Lunch",
+    "EMP_EXP_ID": "121230000442",
+    "EMP_EXP_REF_NO": "29",
+    "EMP_EXP_DATE": "13/03/2025 01:40:22 PM",
+    "EXP_AMT": "230"
+} -->
+  <div class="transaction-container">
+      <div class="transaction-card d-flex align-items-center" *ngFor="let items of TransactionList;let i = index" (click)="ExpenseDetails(items)">
+          <i class="fa fa-arrow-up transaction-icon"></i>
+          <div class="transaction-info">
+              <p class="d-flex justify-content-between">
+                    {{items.PROJECT_NAME}} 
+                  <span class="amount">{{items.EXP_AMT | number:'1.2-2'}}</span>
+              </p>
+              <small>{{ items.EMP_EXP_DATE  }}</small>
+              <br>
+              <small>Refernce No:{{ items.EMP_EXP_REF_NO  }}</small>
+
+          </div>
+          <i class="fa fa-chevron-right arrow-icon"></i>
+      </div>
+
+     
+  </div>
+
+  <div class="row mt-5" *ngIf="TransactionList.length==0">
+    <div class="col-12">
+        <h6 class="text-center"> No Record Found!</h6>
+    </div>
+  </div>
+</div>

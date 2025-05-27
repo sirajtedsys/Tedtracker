@@ -1,0 +1,141 @@
+// /*
+//  * App Global CSS
+//  * ----------------------------------------------------------------------------
+//  * Put style rules here that you want to apply globally. These styles are for
+//  * the entire app and not just one component. Additionally, this file can be
+//  * used as an entry point to import other CSS/Sass files to be included in the
+//  * output CSS.
+//  * For more information on global stylesheets, visit the documentation:
+//  * https://ionicframework.com/docs/layout/global-stylesheets
+//  */
+
+// /* Core CSS required for Ionic components to work properly */
+// @import "@ionic/angular/css/core.css";
+
+// /* Basic CSS for apps built with Ionic */
+// @import "@ionic/angular/css/normalize.css";
+// @import "@ionic/angular/css/structure.css";
+// @import "@ionic/angular/css/typography.css";
+// @import "@ionic/angular/css/display.css";
+
+// /* Optional CSS utils that can be commented out */
+// @import "@ionic/angular/css/padding.css";
+// @import "@ionic/angular/css/float-elements.css";
+// @import "@ionic/angular/css/text-alignment.css";
+// @import "@ionic/angular/css/text-transformation.css";
+// @import "@ionic/angular/css/flex-utils.css";
+
+// /**
+//  * Ionic Dark Mode
+//  * -----------------------------------------------------
+//  * For more info, please see:
+//  * https://ionicframework.com/docs/theming/dark-mode
+//  */
+
+// /* @import "@ionic/angular/css/palettes/dark.always.css"; */
+// /* @import "@ionic/angular/css/palettes/dark.class.css"; */
+// @import '@ionic/angular/css/palettes/dark.system.css';
+// body { background-color: #f8f9fa; }
+// .container { max-width: 400px; margin-top: 20px; }
+// .card { border-radius: 15px; padding: 20px; }
+// .form-control { border-radius: 10px; }
+// .btn-primary { border-radius: 10px; }
+
+// background: linear-gradient(to right, #f0f4ff, #ffffff);
+.cpoint{cursor: pointer;}
+body {
+    background: linear-gradient(to left, #f0f4ff, #ffffff);
+    height: 100vh;
+    // display: flex;
+    // flex-direction: column;
+    align-items: center;
+  }
+
+//   * {
+//     margin: 0;
+//     padding: 0;
+//     box-sizing: border-box;
+//     // font-family: 'Plus Jakarta Sans', sans-serif;
+//   }
+// .header {
+//     width: 100%;
+//     background: #ffffff;
+//     color: black;
+//     text-align: center;
+//     padding: 15px;
+//     font-size: 20px;
+//     font-weight: bold;
+//     border-bottom: 1px solid #ccc;
+//     // position: fixed;
+// }
+
+.cont{
+    margin-top: 70px;
+}
+
+// .header {
+//     width: 100%;
+//     background: linear-gradient(to right, #6a11cb, #2575fc); 
+//     backdrop-filter: blur(10px);
+//     color: white;
+//     text-align: center;
+//     padding: 15px;
+//     font-size: 22px;
+//     font-weight: bold;
+//     text-transform: uppercase;
+//     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+//     position: fixed;
+//     top: 0;
+//     left: 0;
+//     z-index: 1000;
+//     // display: flex;/
+// }
+
+.header {
+    width: 100%;
+    background: linear-gradient(to right, #6a11cb, #2575fc); 
+    backdrop-filter: blur(10px);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 22px;
+    font-weight: bold;
+    // text-transform: uppercase;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0; 
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center header text */
+}
+
+.back-btn {
+    font-size: 20px;
+    margin-right: 15px; /* Space between icon and text */
+    cursor: pointer;
+    position: absolute;
+    left: 15px;
+}
+.refresh-btn {
+    font-size: 20px;
+    margin-left: 15px; /* Space between icon and text */
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+}
+
+
+
+
+.menu-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 20px;
+    width: 90%;
+    margin-top: 20px;
+}
+// @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&display=swap');
+

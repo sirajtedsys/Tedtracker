@@ -1,0 +1,44 @@
+
+  .task-card {
+    margin-bottom: 15px;
+  }
+  .task-status {
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+  .completed {
+    color: green;
+  }
+  .in-progress {
+    color: orange;
+  }
+  .pending {
+    color: red;
+  }
+  .task-actions button {
+    margin-right: 5px;
+  }
+  @media (max-width: 768px) {
+    .task-actions {
+      text-align: center;
+    }
+  }
+  
+  .emergency-row {
+    background-color: #fcf2e2 !important;  /* Light red background */
+    // color: #900 !important;                /* Optional: dark red text */
+    font-weight: bold;
+    //  border-left: 5px solid #d9534f;
+  }
+  .table>:not(caption)>*>* 
+  {
+    background-color: transparent;
+  }
+  .table-responsive {
+    width: 100%;
+  }
+  
+  .table {
+    width: 100%;
+    table-layout: auto; /* or fixed if you want equal widths */
+  }
