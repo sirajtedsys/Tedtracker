@@ -343,29 +343,7 @@ return this.datePipe.transform(TimeNo, 'yyyy-MM-dd hh:mm:ss a', this.TimeZone)
  
 PunchLocation:number | null  = null
 
-  // async CheckIn() {
-        
-  //   this.CurrentDateTime = this.datePipe.transform(await this.GetCurrentDbTime(),'yyyy-MM-dd hh:mm:ss a')
-  //   //  this.datePipe.transform(new Date(), 'yyyy-MM-dd hh:mm:ss a');
-  //   // this.Attendence.CheckIn = this.Today;
-  //   let att = new Attendence()
-  //   att.P_OPR_ID = 3
-  //   att.Hdr =0
-  //   att.EmpId = this.EmpData[0].EMP_ID
-  //   att.PunchType = 0
-  //   att.PunchDate = this.CurrentDateTime
-  //     this.GetPunchDetails(att)
-  // }
 
-  // startLoopingFunction(callback: () => void) {
-  //   // Call the callback immediately once
-  //   callback();
-  
-  //   // Set an interval to run the function every minute (60,000 ms)
-  //   setInterval(() => {
-  //     callback();
-  //   }, 60000); // 60,000 milliseconds = 1 minute
-  // }
 
   CountbyFouroFAttendenceData() {
     if (this.AttendenceData.length === 0) {
@@ -430,32 +408,7 @@ PunchLocation:number | null  = null
       this.GetPunchDetails(att)
   }
   
-  // async LocationName(longi: number, lati: number): Promise<string> { // Specify return type as Promise<string>
-  //   const loading = await this.loading.create({
-  //     cssClass: 'custom-loading',
-  //     message: 'Loading...',
-  //     spinner: 'dots',
-  //   });
   
-  //   await loading.present();
-  //   return new Promise((resolve, reject) => { // Wrap the subscription in a Promise
-  //     this.locser.locationname(longi, lati).subscribe(
-  //       (data: any) => {
-  //         loading.dismiss();
-  //         console.log(data);
-  //         if (data) {
-  //           resolve(data.display_name); // Resolve the Promise with the display name
-  //         } else {
-  //           resolve(''); // Resolve with an empty string if no data
-  //         }
-  //       },
-  //       (error: any) => {
-  //         loading.dismiss();
-  //         reject(error); // Reject the Promise in case of an error
-  //       }
-  //     );
-  //   });
-  // }
 
 async Submit1()
 {
@@ -483,150 +436,6 @@ async Submit1()
 
 }
 
-  // async SubmitCheckinCheckout()
-  // {
-  //   const loading = await this.loading.create({
-  //     cssClass: 'custom-loading', // Optional: Apply custom CSS class for styling
-  //     message: 'Loading...', // Optional: Custom message
-  //     spinner: 'dots', // Optional: Choose a spinner
-  //     // duration: 2000 // Optional: Set a duration after which the loader will automatically dismiss
-  //   });
-  //   await loading.present();
-  //   this.Attendence.EmployeeId=this.EmpId
-  //   this.empser.InsertEmployeeCheckinCheckOut(this.Attendence).subscribe((data:any)=>{  
-      
-  //   loading.dismiss()
-  //     if(data)
-  //       {
-  //         if(data.Status==200)
-  //         {
-  //           this.GetUserCurretDayAttendecneDetails()
-  //           Swal.fire(data.Message,'','success')
-  //         }
-  //         else
-  //         {
-  //           Swal.fire(data.Message,'','warning')
-  //         }
-  //       }    
-
-
-  //   },(error:any)=>
-  // {
-    
-  //   loading.dismiss()
-  // })
-
-  // }
-
-  
- 
-
-
-
-//  async EnterDailyWorkReport(){
-//     const modal = await this.modalController.create({
-//       component: DailyWorkReportPage,
-//       componentProps: {
-//         AttendenceData: this.Attendence,
-//         // taskDescription: task.description
-//       }
-//     });
-
-//     return await modal.present();
-//   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//   async getAllSalutationMaster(){
-//     const loading = await this.loading.create({
-//       cssClass: 'custom-loading', 
-//       message: 'Loading...', 
-//       spinner: 'dots', 
-//     });
-//     loading.present();
-//     this.Commstr.GetALLCommonMastersBytypeID(1001).subscribe((data:any)=>{
-//       loading.dismiss()
-//       if(data && data!=null)
-//       {
-//         this.salutationlist=data
-
-//       }
-//       else
-//       {
-//         this.salutationlist=[]
-//       }
-//     }),(error:any)=>{
-//       console.log(error);
-//       loading.dismiss()
-      
-//     }
-//   }
-//   async GetAllDepartmentMAster(){
-//     const loading = await this.loading.create({
-//       cssClass: 'custom-loading', 
-//       message: 'Loading...', 
-//       spinner: 'dots', 
-//     });
-//     loading.present();
-//     this.Commstr.GetALLCommonMastersBytypeID(1002).subscribe((data:any)=>{
-//       loading.dismiss()
-//       if(data && data!=null)
-//       {
-//         this.Departmentlist=data
-
-//       }
-//       else
-//       {
-//         this.Departmentlist=[]
-//       }
-//     }),(error:any)=>{
-//       console.log(error);
-//       loading.dismiss()
-      
-//     }
-//   }
-
-//   async getAllDesignationMAster(){
-//     const loading = await this.loading.create({
-//       cssClass: 'custom-loading', 
-//       message: 'Loading...', 
-//       spinner: 'dots', 
-//     });
-//     loading.present();
-//     this.Commstr.GetALLCommonMastersBytypeID(1003).subscribe((data:any)=>{
-//       loading.dismiss()
-//       if(data && data!=null)
-//       {
-//         this.Designationlist=data
-
-//       }
-//       else
-//       {
-//         this.Designationlist=[]
-//       }
-//     }),(error:any)=>{
-//       console.log(error);
-//       loading.dismiss()
-      
-//     }
-//   }
 
   edit(it:any){
 
@@ -707,28 +516,7 @@ async safeGetCurrentDbTime() {
   }
   
 
-  // async GetAllMEnuGroup(){
-  //   const loading = await this.loading.create({
-  //     cssClass: 'custom-loading', 
-  //     message: 'Loading...', 
-  //     spinner: 'dots', 
-  //   });
-  //   loading.present();
-  //   this.Commstr.GetAllMenuGropus(0).subscribe((data:any)=>{
-  //     loading.dismiss()
-  //     if(data && data!=null)
-  //     {
-  //       this.MenuGroupList=data
-  //     }
-  //     else
-  //     {
-  //       this.MenuGroupList=[]
-  //     }
-  //   }),(error:any)=>{
-  //     loading.dismiss()
-  //   }
-
-  // }
+  
 
   search(event:any) {
 
@@ -912,7 +700,17 @@ closeModal() {
     const modalInstance = bootstrap.Modal.getInstance(modal); // Get Bootstrap modal instance
     modalInstance?.hide(); // Hide modal
   }
+
+  
 }
+OpenModal() {
+  const modal = document.getElementById('exampleModal'); // Get modal element
+  if (modal) {
+    const modalInstance = bootstrap.Modal.getOrCreateInstance(modal); // Create or get Bootstrap modal instance
+    modalInstance.show(); // Show modal
+  }
+}
+
 async OpenProjectModal(){
   const modal = await this.modalController.create({
     component: CommonModalPage,
@@ -929,10 +727,15 @@ async OpenProjectModal(){
       // taskDescription: task.description
     }
   });
-
+  // setTimeout(() => {
+  //   console.log(document.activeElement);
+  // }, 100);
+  this.closeModal()
+  
    await modal.present();
   const { data, role } = await modal.onWillDismiss(); // You can also use onDidDismiss()
 
+  this.OpenModal()
     // `data` contains the output data from the modal
     // `role` contains the role (e.g., "cancel", "confirm")
     if (role === 'confirm') {
@@ -944,6 +747,7 @@ async OpenProjectModal(){
         this.call.ProjectName=data.selected[0].ProjectName
         console.log(values);
         this.onProjectChange(this.call.ProjectId)
+       
       }
       else
       {
@@ -951,22 +755,7 @@ async OpenProjectModal(){
       this.call.ProjectId=0
       this.call.ProjectName=''
       console.log(values);
-      // this.GetActiveProjects()
-      // this.CustomerList=[]
       }
-      // this.SelectedBranchCustomers=data.selected
-      // this.CustomersName = values['Customer Name'];
-
-      // this.BranchCustomersName = values.map((item:any) => item.CUST_NAME).join(', ');
-      // console.log(this.BranchCustomersName);
-      // let custid  = values.map((item: any) => `${item.CUST_ID}`).join(',');
-
-      // let scid = this.SectionData.SCT_ID
-      // await this.GetAppCustFlexFill(scid,custid)
-  
-    
-      
-      // console.log(custid,'custids');
     } else {
       console.log('Modal dismissed without selection');
       // this.call.ProjectName=this.call.ProjectId>0?this.call.ProjectName:''
@@ -1031,67 +820,6 @@ CheckOutCOndition(cycle:any):boolean{
 }
 
 
-// <div class="card">
-//       <div class="row px-1" *ngFor="let items of groupedAttendanceData">
-//         <div class="col-md-12 my-2 mx-1">
-//           <div class="form-control border-black text-center" >
-//             <i class="fa fa-check text-success"></i> <label for="">Check In Time : {{items.PUNCH_DATE  }}</label>
-//           </div>
-//           <!-- *ngIf="Attendence.CheckIn==''  && AttendenceBreak.BreakOut == '' &&  (Attendence.CheckOut == '' || Attendence.CheckOut==null)" -->
-//           <button  (click)="CheckIn()" class="btn w-100 btn-outline-primary active">Check in</button>
-        
-//         </div>
-
-//         <!-- *ngIf=" AttendenceBreakDetails!=null && AttendenceBreakDetails.length>0 " -->
-//         <div class="col-12 my-2 mx-1">
-//           <div class="row mx-1 my-1" >
-//           <div class="col-6 "> 
-//             <!-- *ngIf="Attendence.CheckIn!=''" -->
-//               <div class="form-control border-black text-center">
-//               <label for="">Break Out <br>{{items.BreakOut | date:'hh:mm:ss a'}}</label>
-//             </div>
-//           </div>
-//           <div class="col-6"> 
-//             <!-- *ngIf="Attendence.CheckIn!='' && items.BreakIn!=null" -->
-//             <div class="form-control border-black text-center">
-//             <label for="">Break In <br> {{items.BreakIn| date:'hh:mm:ss a'}}</label>
-//           </div>
-//         </div>
-//       </div>
-//         </div>
-//         <!-- *ngIf="Attendence.CheckIn!='' " -->
-//         <!-- <div class="col-md-12 my-2 mx-1">
-          
-//           <button (click)="EnterDailyWorkReport()"  class="btn w-100 btn-outline-info active ">Daily Work Report </button>
-//         </div> -->
-
-//         <!-- *ngIf="Attendence.CheckIn!='' && AttendenceBreak.BreakOut==''  &&  (Attendence.CheckOut=='' || Attendence.CheckOut==null)" -->
-//         <div class="col-md-12 my-2 mx-1" >
-          
-//           <button (click)="BreakOut()" class="btn w-100 btn-outline-primary active">Break Out  </button>
-//         </div>
-//         <!-- *ngIf="Attendence.CheckIn !== '' && AttendenceBreak.BreakOut != '' && (AttendenceBreak.BreakIn ==''||AttendenceBreak.BreakIn ==null  &&  (Attendence.CheckOut=='' || Attendence.CheckOut==null)) " -->
-//         <div class="col-md-12 my-2 mx-1">
-//           <button  class="btn w-100 btn-outline-primary active" (click)="BreakIn()">
-//             Break in
-//           </button>
-//         </div>
-
-//         <div class="col-12 my-2-mx-1">
-//           <!-- *ngIf="Attendence.CheckOut!=null && Attendence.CheckOut!=''" -->
-//           <div class="form-control border-black text-center" >
-//             <!-- {{Attendence.CheckOut | date:'hh:mm:ss a'}} -->
-//             <i class="fa fa-check-double  text-success"></i> <label for="">Check Out Time : </label>
-//           </div>
-//         </div>
-     
-//         <div class="col-md-12 my-2 mx-1" *ngIf="CheckOutCOndition()">
-          
-//           <button (click)="CheckOut()"  class="btn w-100 btn-outline-danger active">Check Out</button>
-//         </div>
-//       </div>
-
-//     </div>
 
 Clearproj(){
 

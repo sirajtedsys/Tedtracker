@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { ModalController,IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-common-modal',
   templateUrl: './common-modal.page.html',
   styleUrls: ['./common-modal.page.scss'],
   standalone:true,
-  imports:[CommonModule,FormsModule]
+  imports:[CommonModule,FormsModule,IonicModule]
 })
 export class CommonModalPage implements OnInit {
 
@@ -24,7 +24,7 @@ export class CommonModalPage implements OnInit {
   searchQuery: string='';
   filteredData: any[]=[];
 
-  constructor(private modalController:ModalController) { }
+  constructor(private modalController:ModalController) { }  
 
   ngOnInit() {
     console.log(this.DropDownData,this.SelectedItems);
@@ -78,6 +78,8 @@ export class CommonModalPage implements OnInit {
     }
     else
     {
+      console.log('sigle selection');
+      
       if(val == true)
       {
         this.SelectedList=[]

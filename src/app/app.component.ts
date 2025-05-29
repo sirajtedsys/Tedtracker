@@ -228,7 +228,14 @@ hideSidebar(): void {
     sidebar.classList.remove('show-sidebar');
     wrapper.classList.remove('fullwidth');
   }
+
+
+
+
+  
 }
+
+
 
 //#endregion sidebar slide
   
