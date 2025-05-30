@@ -31,7 +31,7 @@ export class AppConfig{
         }
 
     }
-    //local =: 'https://localhost:7102/api'
+    // local =: 'https://localhost:7102/api'
     // url:string='http://misv3/api'    //localtest
     // url:string='http://192.168.1.201:900/api'   //mysystem iis
 

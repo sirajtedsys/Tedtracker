@@ -42,6 +42,7 @@ export class LeaveRequestPage implements OnInit {
 
     this.PreviousLeaveRequests()
     this.checkScreenSize()
+    this.GetLeaveTypeList()
   }
 
 
@@ -50,41 +51,58 @@ export class LeaveRequestPage implements OnInit {
   }
 
   async Submit() {
-    if (this.lr.LEAVE_REQUEST_ID == '') 
-      {
+
+    if (this.lr.LEAVE_REQUEST_ID == '') {
       console.log(this.fromdate < this.todate);
       if (this.RequestDate != undefined && this.RequestDate != null) {
 
-        if (this.fromdate <= this.todate) {
+        if (this.fromdate <= this.todate ) {
+          if(this.lr.P_LEAVE_TYPE_ID == '2' && this.fromdate!=this.todate){
+            Swal.fire('Half day is only allowed for single days', '', 'warning')
+            return
+
+          }
+
+
           this.lr.FromDate = this.datePipe.transform(this.fromdate, 'dd/MM/yyyy')
           this.lr.ToDate = this.datePipe.transform(this.todate, 'dd/MM/yyyy')
           this.lr.LeaveRequestDate = this.datePipe.transform(this.RequestDate, 'dd/MM/yyyy')
-          if (this.lr.LeaveReason != '') {
 
-            const loading = await this.loading.create({
-              cssClass: 'custom-loading',
-              message: 'Loading...',
-              spinner: 'dots',
-            });
-            loading.present();
-            this.comser.SaveLeaveRequestAsync(this.lr).subscribe((data: any) => {
-              loading.dismiss()
-              if (data.Status == 200) {
-                Swal.fire(data.Message, '', 'success')
-                this.Clear()
-                this.loader()
+          if (this.lr. P_LEAVE_TYPE_ID != '') {
 
-              }
-              else {
-                Swal.fire(data.Message, '', 'error')
-              }
-            }, (error: any) => {
-              loading.dismiss()
-            })
+          
+
+            if (this.lr.LeaveReason != '') {
+
+              const loading = await this.loading.create({
+                cssClass: 'custom-loading',
+                message: 'Loading...',
+                spinner: 'dots',
+              });
+              loading.present();
+              this.comser.SaveLeaveRequestAsync(this.lr).subscribe((data: any) => {
+                loading.dismiss()
+                if (data.Status == 200) {
+                  Swal.fire(data.Message, '', 'success')
+                  this.Clear()
+                  this.loader()
+
+                }
+                else {
+                  Swal.fire(data.Message, '', 'error')
+                }
+              }, (error: any) => {
+                loading.dismiss()
+              })
+            }
+            else {
+              Swal.fire('Enter leave reason', '', 'warning')
+            }
+
+          } else {
+            Swal.fire('Enter Leave Request Type', '', 'warning')
           }
-          else {
-            Swal.fire('Enter leave reason', '', 'warning')
-          }
+
         }
         else {
           Swal.fire('Enter a valid from and to date', '', 'warning')
@@ -99,7 +117,7 @@ export class LeaveRequestPage implements OnInit {
       // this.lr.FromDate = this.datePipe.transform(this.fromdate, 'dd/MM/yyyy')
       // this.lr.ToDate = this.datePipe.transform(this.todate, 'dd/MM/yyyy')
       // this.lr.LeaveRequestDate = this.datePipe.transform(this.RequestDate, 'dd/MM/yyyy')
-      this.EditLevReq(this.lr.LEAVE_REQUEST_ID, this.lr.FromDate, this.lr.ToDate, this.lr.LeaveReason);
+      this.EditLevReq(this.lr.LEAVE_REQUEST_ID, this.lr.FromDate, this.lr.ToDate, this.lr.LeaveReason,this.lr.P_LEAVE_TYPE_ID);
     }
   }
 
@@ -132,6 +150,7 @@ export class LeaveRequestPage implements OnInit {
         // this.Clear()
         // this.loader()
         this.LeaveRequestList = data.Data
+        console.log(this.LeaveRequestList)
 
       }
       else {
@@ -148,26 +167,28 @@ export class LeaveRequestPage implements OnInit {
     this.lr.ToDate = ''
     this.lr.LeaveReason = ''
     this.lr.LEAVE_REQUEST_ID = ''
+    this.lr.P_LEAVE_TYPE_ID=''
   }
 
   OnEditLeave(items: any) {
     console.log(items);
     this.lr.LEAVE_REQUEST_ID = items.LEAVE_REQUEST_ID;
     this.lr.LeaveReason = items.LEAVE_REASON;
+    this.lr.P_LEAVE_TYPE_ID =items.LEAVE_TYPE_ID;
     this.todate = this.datePipe.transform(items.TO_DATE, 'yyyy-MM-dd');
     this.fromdate = this.datePipe.transform(items.FROM_DATE, 'yyyy-MM-dd');
     this.lr.ToDate = this.datePipe.transform(items.TO_DATE, 'yyyy-MM-dd');
     this.lr.FromDate = this.datePipe.transform(items.FROM_DATE, 'yyyy-MM-dd');
   }
 
-  async EditLevReq(leaveRequestId: any, fromDate: any, toDate: any, leaveReason: any) {
+  async EditLevReq(leaveRequestId: any, fromDate: any, toDate: any, leaveReason: any,LeaveTypeId:any) {
     const loading = await this.loading.create({
       cssClass: 'custom-loading',
       message: 'Loading...',
       spinner: 'dots',
     });
     await loading.present();
-    this.comser.UpdateLeaveRequest(leaveRequestId, fromDate, toDate, leaveReason).subscribe(
+    this.comser.UpdateLeaveRequest(leaveRequestId, fromDate, toDate, leaveReason,LeaveTypeId).subscribe(
       (data: any) => {
         loading.dismiss();
         if (data.Status == 200) {
@@ -197,7 +218,7 @@ export class LeaveRequestPage implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Delete!'
-    }).then((result) => {
+    }).then((result: any) => {
       if (result.isConfirmed) {
         this.DeleteLevReq(items.LEAVE_REQUEST_ID);
       }
@@ -226,4 +247,35 @@ export class LeaveRequestPage implements OnInit {
       }
     );
   }
+
+
+  LeaveTypeList: any[] = [];
+  LeaveRequestType: string='';
+
+
+  async GetLeaveTypeList() {
+    const loading = await this.loading.create({
+      cssClass: 'custom-loading', // Optional: Apply custom CSS class for styling
+      message: 'Loading...', // Optional: Custom message
+      spinner: 'dots', // Optional: Choose a spinner
+      // duration: 2000 // Optional: Set a duration after which the loader will automatically dismiss
+    })
+
+    await loading.present();
+    this.comser.GetLeaveType().subscribe((data: any) => {
+      loading.dismiss();
+      console.log(data);
+
+      if (data.Status == 200) {
+
+        this.LeaveTypeList = data.Data
+      }
+    }, (error: any) => {
+      loading.dismiss()
+    }
+    )
+
+  }
+
+
 }

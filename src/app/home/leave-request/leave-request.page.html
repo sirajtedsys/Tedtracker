@@ -28,6 +28,16 @@
     </div>
     <div class="col-12 col-sm-6">
       <div class="form-group">
+        <label>Select Leave Type<span class="text-danger">*</span></label>
+        <select name="LeaveType" id="LeaveType" class="form-select"  [(ngModel)]="lr.P_LEAVE_TYPE_ID" >
+          <option value="">Select Leave Type</option>
+          <option *ngFor="let items of LeaveTypeList" [value]="items.LeaveTypeId"
+           [disabled]="items.LeaveTypeId==2 && fromdate!=todate">{{items.LeaveType}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6">
+      <div class="form-group">
         <label for="reason">Reason<span class="text-danger">*</span></label>
         <textarea name="reason" id="reason" [(ngModel)]="lr.LeaveReason" placeholder="Leave Reason" class="form-control" rows="2"></textarea>
       </div>
@@ -62,7 +72,8 @@
                   <th style="width: 10%; text-align: center;">To Date</th>
                   <th style="width: 10%; text-align: center;">Reason</th>
                   <th style="width: 10%; text-align: center;">Status</th>
-                  <th style="width: 10%; text-align: center;"></th>
+                  <th style="width: 10%; text-align: center;">Leave Type</th>
+                  <th></th>
               </tr>
           </thead>
           <tbody>
@@ -76,14 +87,17 @@
                   <td>{{ items.TO_DATE | date: 'dd/MMM/yyyy'}}</td>
                   <td >{{ items.LEAVE_REASON }}</td>
                   <td >{{ items.LEAVE_STATUS  }}</td>
+                  <td >{{items.LEAVE_TYPE }}</td>
+              
                 <!-- </span> -->
                  <!-- Delete Button  -->
-                  <div  class="task-actions mt-3 text-center"  *ngIf="items.STATUS_ID == 1">
+                  <td>
 
-                    <button class="btn btn-danger btn-sm" (click)="OnDeleteLeave(items)"><i class="fas fa-trash"></i></button>
+                    <button *ngIf="items.STATUS_ID == 1" class="btn btn-danger btn-sm" (click)="OnDeleteLeave(items)"><i class="fas fa-trash"></i></button>
                 
-                    <button class="btn btn-outline-success m-1 btn-sm active" (click)="OnEditLeave(items)" ><i class="fa fa-pencil"></i></button>
-                  </div>
+                    <button *ngIf="items.STATUS_ID == 1" class="btn btn-outline-success m-1 btn-sm active" (click)="OnEditLeave(items)" ><i class="fa fa-pencil"></i></button>
+                 
+                </td>
               </tr>
           </tbody>
       </table>
@@ -104,6 +118,7 @@
               <strong>To Date:</strong> {{ items.TO_DATE | date: 'dd-MMM-yyyy'}}<br>
               <strong>Reason :</strong> {{ items.LEAVE_REASON  }}<br>
               <strong>Status :</strong> {{ items.LEAVE_STATUS }}<br>
+              <strong>LeaveType :</strong> {{items.LEAVE_TYPE }}<br>
           
             </p>
 

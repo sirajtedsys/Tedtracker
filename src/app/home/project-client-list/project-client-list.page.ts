@@ -189,7 +189,8 @@ Ws_Remarks_exter:string=''
              console.log(data);
               this.ClientWorkStatusList = data.Data.filter((x:any)=>x.CLIENT_WORK_STATUS_ID!=1)
               this.ClientWorkStatusList2 = data.Data
-              this.SelectedClientStatus = data.Data[0].CLIENT_WORK_STATUS_ID
+              this.SelectedStatus.push(data.Data[0])
+              this.SelectedStatusNames = data.Data[0].CLIENT_WORK_STATUS
              
   
            }
@@ -216,8 +217,9 @@ Ws_Remarks_exter:string=''
             console.log(data);
       
             if (data.Status === 200) {
-              this.TaskList = data.Data.length > 0 ? data.Data.filter((x:any)=>x.PROJECT_WORK_STATUS_ID == this.SelectedClientStatus) : [];
+              this.TaskList = data.Data.length > 0 ? data.Data:[]
               this.TaskListDup = data.Data.length > 0 ? data.Data : [];
+              this.StatusandProjectFilter()
             } else {
               Swal.fire(data.Message, '', 'error');
               // this.TaskList = [];
@@ -319,7 +321,9 @@ Ws_Remarks_exter:string=''
             this.SelectedProject=data.selected[0].ProjectId
             this.SelectedProjectName=data.selected[0].ProjectName
             console.log(values);
-            this.TaskList= this.TaskListDup.filter((x:any)=>x.PROJECT_ID==this.SelectedProject)
+            
+        this.StatusandProjectFilter()
+            
   
           }
           else
@@ -328,13 +332,80 @@ Ws_Remarks_exter:string=''
           this.SelectedProject=0
           this.SelectedProjectName=''
           console.log(values);
+          
+        this.StatusandProjectFilter()
           }
         } else {
           console.log('Modal dismissed without selection');
           this.SelectedProjectName=this.SelectedProject>0?this.SelectedProjectName:''
+          
+        this.StatusandProjectFilter()
         }
     }
 
+    StatusandProjectFilter(){
+      
+      console.log(this.SelectedStatus);
+      
+      this.TaskList = this.TaskListDup.filter((x: any) =>
+        (this.SelectedProject > 0 ? x.PROJECT_ID == this.SelectedProject : true) &&
+        (this.SelectedStatus.length > 0
+          ? this.SelectedStatus.some((status: any) => status.CLIENT_WORK_STATUS_ID === x.PROJECT_WORK_STATUS_ID)
+          : true)
+      );
+      
+      
+      
+      
+    }
+
+    SelectedStatus:any[]=[]
+    SelectedStatusNames:string=''
+    // SelectedStatusIds:string=
+    async OpenStatusModal(){
+      console.log(this.ClientWorkStatusList2);
+      
+      const modal = await this.modalController.create({
+        component: CommonModalPage,
+        componentProps: {
+          DropDownData:this.ClientWorkStatusList2,
+          Headers:['Status'],
+          Fields:['CLIENT_WORK_STATUS'],
+          ModalHeader:'Status List',
+          CheckType:'check',
+          UniqueField:'CLIENT_WORK_STATUS_ID',
+          SelectedItems:this.SelectedStatus
+        }
+      });
+
+       await modal.present();
+      const { data, role } = await modal.onWillDismiss(); // You can also use onDidDismiss()
+  
+      if (role === 'confirm') {
+        console.log('Selected Data:', data); // Handle the returned data
+        let values = data.selected
+        this.SelectedStatus=data.selected
+        console.log(values);
+        // this.CustomersName = values['Customer Name'];
+
+        this.SelectedStatusNames = values.map((item:any) => item.CLIENT_WORK_STATUS).join(', ');
+        console.log(this.SelectedStatusNames);
+        // let custid  = values.map((item: any) => `${item.CUST_ID}`).join(',');
+
+        // let scid = this.SectionData.SCT_ID
+        // await this.GetAppCustFlexFill(scid,custid)
+    
+      
+        this.StatusandProjectFilter()
+        
+        // console.log(custid,'custids');
+      } else {
+        
+      this.StatusandProjectFilter()
+        console.log('Modal dismissed without selection');
+      }
+      
+    }
 
 
     closeModal() {
@@ -453,7 +524,7 @@ Ws_Remarks_exter:string=''
     }
 
 
-    SelectedClientStatus:string=''
+    // SelectedStatus:string=''
     OnStatusSelectFilter(event:any){
       if(event.target.value=='')
       {

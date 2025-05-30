@@ -1898,7 +1898,7 @@ this.CheckForSt0(error)
   );
 }
 
-UpdateLeaveRequest(leaveRequestId:any,fromDate:any,toDate:any,leaveReason:any) 
+UpdateLeaveRequest(leaveRequestId:any,fromDate:any,toDate:any,leaveReason:any,LeaveTypeId:any) 
 {
   this.GetDecryptedData()
   let headers = new HttpHeaders();
@@ -1907,7 +1907,7 @@ UpdateLeaveRequest(leaveRequestId:any,fromDate:any,toDate:any,leaveReason:any)
   headers = headers.set('Authorization', 'Bearer ' + this.decryptiondata); 
   let options ={ headers: headers };
   return this.http.get(this.appconfig.url + '/ExpenseTracker/UpdateLeaveRequest?LeaveRequestId='+ leaveRequestId + 
-    '&FromDate=' + fromDate + '&ToDate=' + toDate + '&LeaveReason=' + leaveReason, options)
+    '&FromDate=' + fromDate + '&ToDate=' + toDate + '&LeaveReason=' + leaveReason + '&LeaveTypeId=' + LeaveTypeId, options)
   .pipe(
         catchError((error: any) => {
       this.CheckForUnAuthorised(error)
@@ -2009,5 +2009,29 @@ this.CheckForSt0(error)
     })
   );
 }
+
+
+GetLeaveType() 
+{
+  this.GetDecryptedData()
+  let headers = new HttpHeaders();
+  headers.set("Accept", 'application/json');
+  headers.set('Content-Type', 'application/json');
+  headers = headers.set('Authorization', 'Bearer ' + this.decryptiondata); 
+  let options ={ headers: headers };
+  return this.http.get(this.appconfig.url + '/ExpenseTracker/GetLeaveType' , options)
+  .pipe(
+        catchError((error: any) => {
+      this.CheckForUnAuthorised(error)
+this.CheckFor404(error)
+this.CheckForSt0(error)
+      // Handle the error here or rethrow it as needed
+      console.error('Error in Getting  Leave Type:', error);
+      return throwError(error); // Rethrow the error
+    })
+  );
+}
+
+
 
 }

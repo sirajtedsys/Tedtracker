@@ -65,7 +65,8 @@
           <th style="width: 10%; text-align: center;">Empolyee Name</th>
           <th style="width: 10%; text-align: center;">Status</th>
           <th style="width: 10%; text-align: center;">Created Date</th>
-          <th style="width: 10%; text-align: center;"></th>
+          <th style="width: 10%; text-align: center;">Leave Type</th>
+          <th></th>
 
         </tr>
       </thead>
@@ -81,6 +82,8 @@
           <td>{{ items.EmpName }}</td>
           <td>{{ items.LeaveStatus }}</td>
           <td>{{ items.CreateDate  | date: 'dd/MMM/yyyy'}}</td>
+          <td>{{ items.LeaveType}}</td>
+       
 <td>
           <!-- <div class="task-actions mt-3 text-center"  -->
             <button class="btn btn-outline-success m-1   btn-sm active" *ngIf="items.StatusId == 1"data-bs-toggle="modal" 
@@ -88,6 +91,7 @@
              (click)="OnEditLeave(items)" ><i class="fa fa-pencil"></i></button>
           <!-- </div> -->
         </td>
+
         </tr>
       </tbody>
     </table>
@@ -108,6 +112,8 @@
             <strong>Reason :</strong> {{ items.LeaveReason }}<br>
             <strong>Status :</strong> {{ items.LeaveStatus }}<br>
             <strong>Created Date :</strong> {{ items.CreateDate  | date: 'dd/MMM/yyyy'}}<br>
+            <strong>Leave Type : </strong>{{items.LeaveType}}<br>
+
           </p>
 
             <div class="task-actions mt-3 text-center"  *ngIf="items.StatusId == 1">
